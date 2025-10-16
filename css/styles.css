@@ -1,0 +1,78 @@
+/*
+  Stylesheet for Data Visualisation 2 project.
+
+  Provides a clean, light aesthetic with a responsive grid layout.
+  Each chart sits inside a card with padding and a subtle shadow.
+*/
+
+html, body {
+  /* Make the page scrollable when content exceeds the viewport height */
+  height: 100%;
+  overflow-y: auto;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f9ff;
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-top: 0;
+  color: #003366;
+}
+
+p.intro {
+  font-size: 1em;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 20px;
+}
+
+.chart-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chart titles */
+.chart-card h2 {
+  font-size: 1.1em;
+  margin: 0 0 10px;
+  color: #1a5276;
+}
+
+/* Container for Vega-Lite charts */
+/*
+  Give each Vega-Lite chart container a larger minimum height to make
+  diagrams bigger. Users can always scroll if the combined height
+  exceeds the viewport.
+*/
+.chart {
+  flex: 1;
+  min-height: 400px;
+}
+
+/* Footnote styling */
+.footnote {
+  font-size: 0.8em;
+  margin-top: 10px;
+  color: #7f8c8d;
+}

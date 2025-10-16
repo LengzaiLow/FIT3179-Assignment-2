@@ -1,0 +1,57 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Normalised stacked bar chart showing the distribution of vehicle types across fuel categories.",
+  "height": 350,
+  "data": { "url": "../data/cars_agg_by_fuel_type.csv" },
+  "title": {
+    "text": "Vehicle Type Distribution by Fuel",
+    "anchor": "start",
+    "color": "#003366",
+    "fontSize": 14
+  },
+  "selection": {
+    "selectType": {
+      "type": "multi",
+      "fields": ["Type"],
+      "bind": "legend"
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Fuel",
+      "type": "nominal",
+      "title": "Fuel Type",
+      "axis": { "labelAngle": 0 }
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Proportion of Vehicles",
+      "stack": "normalize",
+      "axis": { "format": ".0%" }
+    },
+    "color": {
+      "field": "Type",
+      "type": "nominal",
+      "title": "Vehicle Type",
+      "scale": { "scheme": "category10" },
+      "legend": { "columns": 1 }
+    },
+    "opacity": {
+      "condition": { "selection": "selectType", "value": 1 },
+      "value": 0.2
+    },
+    "tooltip": [
+      { "field": "Fuel", "type": "nominal", "title": "Fuel Type" },
+      { "field": "Type", "type": "nominal", "title": "Vehicle Type" },
+      { "field": "count", "type": "quantitative", "title": "Count" },
+      { "field": "avg_price", "type": "quantitative", "title": "Avg Price (USD)", "format": ",.0f" },
+      { "field": "avg_cc", "type": "quantitative", "title": "Avg Engine CC", "format": ",.0f" }
+    ]
+  },
+  "mark": { "type": "bar" },
+  "config": {
+    "axis": { "labelFontSize": 10, "titleFontSize": 11 },
+    "legend": { "labelFontSize": 9, "titleFontSize": 10 }
+  }
+}

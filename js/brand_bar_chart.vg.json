@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Horizontal bar chart of the top 10 vehicle brands by number of listings, colored by average price.",
+  "height": 350,
+  "data": { "url": "../data/cars_agg_by_brand.csv" },
+  "title": {
+    "text": "Top Vehicle Brands",
+    "anchor": "start",
+    "color": "#003366",
+    "fontSize": 14
+  },
+  "transform": [
+    { "window": [ { "op": "row_number", "as": "rank" } ], "sort": [ { "field": "count", "order": "descending" } ] },
+    { "filter": "datum.rank <= 10" }
+  ],
+  "mark": { "type": "bar", "cornerRadiusEnd": 4 },
+  "encoding": {
+    "y": {
+      "field": "Brand",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Brand"
+    },
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Number of Vehicles"
+    },
+    "color": {
+      "field": "avg_price",
+      "type": "quantitative",
+      "title": "Average Price (USD)",
+      "scale": { "type": "log", "scheme": "greens", "zero": false }
+    },
+    "tooltip": [
+      { "field": "Brand", "type": "nominal", "title": "Brand" },
+      { "field": "count", "type": "quantitative", "title": "Count" },
+      { "field": "avg_price", "type": "quantitative", "title": "Avg Price (USD)", "format": ",.0f" },
+      { "field": "avg_cc", "type": "quantitative", "title": "Avg Engine CC", "format": ",.0f" },
+      { "field": "avg_year", "type": "quantitative", "title": "Avg Year", "format": ".0f" }
+    ]
+  },
+  "config": {
+    "axis": { "labelFontSize": 10, "titleFontSize": 11 },
+    "legend": { "labelFontSize": 9, "titleFontSize": 10 }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bar chart showing the number of vehicles within engine size bins, with a line overlay for average price.",
+  "height": 350,
+  "data": { "url": "../data/cars_agg_by_cc_bin.csv" },
+  "title": {
+    "text": "Engine Size vs Average Price",
+    "anchor": "start",
+    "color": "#003366",
+    "fontSize": 14
+  },
+  "layer": [
+    {
+      "mark": { "type": "bar", "color": "#6baed6" },
+      "encoding": {
+        "x": {
+          "field": "CC_bin",
+          "type": "ordinal",
+          "title": "Engine Size (cc)",
+          "axis": { "labelAngle": -40 }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Number of Vehicles"
+        },
+        "tooltip": [
+          { "field": "CC_bin", "type": "ordinal", "title": "Engine Size (cc)" },
+          { "field": "count", "type": "quantitative", "title": "Count" },
+          { "field": "avg_price", "type": "quantitative", "title": "Avg Price (USD)", "format": ",.0f" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "line", "color": "#e66101", "strokeWidth": 2 },
+      "encoding": {
+        "x": {
+          "field": "CC_bin",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "avg_price",
+          "type": "quantitative",
+          "title": "Average Price (USD)",
+          "axis": { "orient": "right", "titleColor": "#e66101" }
+        }
+      }
+    }
+  ],
+  "resolve": { "scale": { "y": "independent" } },
+  "config": {
+    "axis": { "labelFontSize": 10, "titleFontSize": 11 }
+  }
+}
