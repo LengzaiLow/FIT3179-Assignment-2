@@ -6,7 +6,7 @@
 */
 
 html, body {
-  /* Make the page scrollable when content exceeds the viewport height */
+  /* Always show a vertical scrollbar when content exceeds the viewport height */
   height: 100%;
   overflow-y: auto;
 }
@@ -38,9 +38,8 @@ p.intro {
 }
 
 .viz-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  grid-gap: 20px;
+  /* Stack charts vertically instead of using a grid */
+  display: block;
 }
 
 .chart-card {
@@ -50,6 +49,8 @@ p.intro {
   padding: 15px;
   display: flex;
   flex-direction: column;
+  /* Add space below each chart card when stacked vertically */
+  margin-bottom: 30px;
 }
 
 /* Chart titles */
@@ -67,7 +68,8 @@ p.intro {
 */
 .chart {
   flex: 1;
-  min-height: 400px;
+  /* Increase the minimum height so each view fills the page more fully */
+  min-height: 500px;
 }
 
 /* Footnote styling */

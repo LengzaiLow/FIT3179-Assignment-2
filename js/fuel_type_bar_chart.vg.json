@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Normalised stacked bar chart showing the distribution of vehicle types across fuel categories.",
-  "height": 350,
+  "height": 450,
   "data": { "url": "../data/cars_agg_by_fuel_type.csv" },
   "title": {
     "text": "Vehicle Type Distribution by Fuel",
