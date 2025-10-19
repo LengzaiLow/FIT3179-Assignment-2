@@ -107,16 +107,10 @@ h1, h2, h3, h4 {
 
 /* Dashboard Layout */
 .dashboard {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
     margin: 2rem 0;
-}
-
-@media (max-width: 968px) {
-    .dashboard {
-        grid-template-columns: 1fr;
-    }
 }
 
 .dashboard-item {
@@ -124,6 +118,7 @@ h1, h2, h3, h4 {
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
+    width: 100%;
 }
 
 /* Key Insights Box */

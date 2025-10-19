@@ -1,48 +1,37 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Fuel Type Distribution: Top Brands",
+    "text": "Fuel Type Distribution Across Top 10 Brands",
     "fontSize": 16,
-    "fontWeight": "bold"
+    "fontWeight": "bold",
+    "color": "#667eea"
   },
-  "width": 500,
-  "height": 350,
+  "width": "container",
+  "height": 400,
   "data": {
     "url": "data/cars_info.csv"
   },
   "transform": [
     {
-      "calculate": "trim(datum.Fuel)",
+      "calculate": "trim(split(datum.Fuel, ',')[0])",
       "as": "FuelClean"
     },
     {
-      "calculate": "datum.FuelClean == 'Unleaded Petrol' ? 'Petrol' : datum.FuelClean == 'Premium Unleaded Petrol' ? 'Premium Petrol' : datum.FuelClean == 'Premium Unleaded/Electric' ? 'Hybrid' : datum.FuelClean == 'Diesel' ? 'Diesel' : 'Other'",
+      "calculate": "datum.FuelClean == 'Unleaded Petrol' ? 'Petrol' : datum.FuelClean == 'Premium Unleaded Petrol' ? 'Premium Petrol' : datum.FuelClean == 'Diesel' ? 'Diesel' : indexOf(datum.FuelClean, 'Electric') >= 0 ? 'Electric/Hybrid' : indexOf(datum.FuelClean, 'Hybrid') >= 0 ? 'Electric/Hybrid' : 'Other'",
       "as": "FuelType"
     },
     {
-      "aggregate": [{"op": "count", "as": "TotalCount"}],
+      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
       "groupby": ["Brand"]
     },
     {
-      "window": [{"op": "rank", "as": "rank"}],
-      "sort": [{"field": "TotalCount", "order": "descending"}]
-    },
-    {"filter": "datum.rank <= 10"},
-    {
-      "lookup": "Brand",
-      "from": {
-        "data": {"url": "data/cars_info.csv"},
-        "key": "Brand",
-        "fields": ["Fuel"]
-      }
+      "window": [{"op": "rank", "as": "BrandRank"}],
+      "sort": [{"field": "BrandTotal", "order": "descending"}],
+      "frame": [null, null],
+      "groupby": []
     },
     {
-      "calculate": "trim(datum.Fuel)",
-      "as": "FuelClean"
-    },
-    {
-      "calculate": "datum.FuelClean == 'Unleaded Petrol' ? 'Petrol' : datum.FuelClean == 'Premium Unleaded Petrol' ? 'Premium Petrol' : datum.FuelClean == 'Premium Unleaded/Electric' ? 'Hybrid' : datum.FuelClean == 'Diesel' ? 'Diesel' : 'Other'",
-      "as": "FuelType"
+      "filter": "datum.BrandRank <= 10"
     }
   ],
   "mark": {
@@ -53,39 +42,49 @@
     "y": {
       "field": "Brand",
       "type": "nominal",
-      "sort": "-x",
+      "sort": {"field": "BrandTotal", "order": "descending"},
       "axis": {
         "title": null,
-        "labelFontSize": 11
+        "labelFontSize": 12,
+        "labelLimit": 120
       }
     },
     "x": {
       "aggregate": "count",
       "type": "quantitative",
-      "title": "Percentage",
+      "title": "Proportion of Vehicles",
       "stack": "normalize",
       "axis": {
-        "format": "%",
-        "labelFontSize": 10
+        "format": ".0%",
+        "labelFontSize": 11
       }
     },
     "color": {
       "field": "FuelType",
       "type": "nominal",
       "scale": {
-        "domain": ["Petrol", "Premium Petrol", "Diesel", "Hybrid", "Other"],
+        "domain": ["Petrol", "Premium Petrol", "Diesel", "Electric/Hybrid", "Other"],
         "range": ["#4c78a8", "#f58518", "#54a24b", "#e45756", "#9d9d9d"]
       },
       "legend": {
         "title": "Fuel Type",
         "orient": "bottom",
-        "labelFontSize": 11
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "columns": 5
       }
     },
     "tooltip": [
-      {"field": "Brand", "type": "nominal"},
-      {"field": "FuelType", "type": "nominal", "title": "Fuel"},
-      {"aggregate": "count", "type": "quantitative", "title": "Count"}
+      {"field": "Brand", "type": "nominal", "title": "Brand"},
+      {"field": "FuelType", "type": "nominal", "title": "Fuel Type"},
+      {"aggregate": "count", "type": "quantitative", "title": "Number of Vehicles"}
     ]
+  },
+  "config": {
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "background": "#fafbfc"
   }
 }
