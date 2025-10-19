@@ -1,80 +1,164 @@
 /*
   Stylesheet for Data Visualisation 2 project.
 
-  Provides a clean, light aesthetic with a responsive grid layout.
+  Provides a clean, modern aesthetic with a responsive grid layout.
   Each chart sits inside a card with padding and a subtle shadow.
 */
 
+/* Base styles */
 html, body {
-  /* Always show a vertical scrollbar when content exceeds the viewport height */
   height: 100%;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f9ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f9ff 0%, #e8f4f8 100%);
   color: #2c3e50;
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Header styles */
+header {
+  text-align: center;
+  margin-bottom: 40px;
   padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  font-size: 2em;
-  margin-top: 0;
+  font-size: 2.5em;
+  margin: 0 0 15px 0;
   color: #003366;
+  font-weight: 600;
 }
 
 p.intro {
-  font-size: 1em;
-  margin-bottom: 20px;
-  line-height: 1.5;
+  font-size: 1.1em;
+  margin: 0;
+  line-height: 1.8;
+  color: #555;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* Grid layout */
 .viz-grid {
-  /* Stack charts vertically instead of using a grid */
-  display: block;
-}
-
-.chart-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  /* Add space below each chart card when stacked vertically */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
   margin-bottom: 30px;
 }
 
-/* Chart titles */
-.chart-card h2 {
-  font-size: 1.1em;
-  margin: 0 0 10px;
-  color: #1a5276;
+/* Chart cards */
+.chart-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Container for Vega-Lite charts */
-/*
-  Give each Vega-Lite chart container a larger minimum height to make
-  diagrams bigger. Users can always scroll if the combined height
-  exceeds the viewport.
-*/
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Card header */
+.card-header {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e7ed;
+}
+
+.chart-card h2 {
+  font-size: 1.3em;
+  margin: 0 0 8px 0;
+  color: #1a5276;
+  font-weight: 600;
+}
+
+.chart-description {
+  font-size: 0.9em;
+  color: #7f8c8d;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Chart container */
 .chart {
   flex: 1;
-  /* Increase the minimum height so each view fills the page more fully */
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-card.full-width .chart {
   min-height: 500px;
 }
 
-/* Footnote styling */
+/* Footer */
+footer {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+}
+
 .footnote {
-  font-size: 0.8em;
-  margin-top: 10px;
+  font-size: 0.85em;
+  margin: 8px 0;
   color: #7f8c8d;
+  line-height: 1.6;
+}
+
+.footnote strong {
+  color: #003366;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .viz-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  p.intro {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+  
+  h1 {
+    font-size: 1.75em;
+  }
+  
+  .chart {
+    min-height: 350px;
+  }
 }

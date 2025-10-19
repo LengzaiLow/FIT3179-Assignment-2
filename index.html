@@ -13,35 +13,62 @@
 </head>
 <body>
   <div class="container">
-    <h1>Interactive Global Economy and Car Market Dashboard</h1>
-    <p class="intro">
-      Explore the economic output of countries around the world alongside key trends in the automotive market. The charts below let you compare national GDPs, examine how vehicle types differ across fuel sources, see the relationship between engine size and price, and discover the most popular car brands.
-    </p>
+    <header>
+      <h1>Interactive Global Economy and Car Market Dashboard</h1>
+      <p class="intro">
+        Explore the economic output of countries around the world alongside key trends in the automotive market. 
+        The visualizations below showcase GDP distribution, vehicle type preferences by fuel type, the relationship 
+        between engine size and pricing, and the most popular car brands in the market.
+      </p>
+    </header>
+
     <div class="viz-grid">
-      <!-- Map chart -->
-      <div class="chart-card">
-        <h2>Global GDP by Country</h2>
+      <!-- Map chart - Full width -->
+      <div class="chart-card full-width">
+        <div class="card-header">
+          <h2>Global GDP by Country (2020-2025)</h2>
+          <p class="chart-description">Interactive map showing GDP distribution across countries with year selection</p>
+        </div>
         <div id="gdp_map" class="chart"></div>
       </div>
-      <!-- Fuel type bar chart -->
+
+      <!-- Two column layout for medium charts -->
       <div class="chart-card">
-        <h2>Vehicle Type Distribution by Fuel</h2>
+        <div class="card-header">
+          <h2>Vehicle Type Distribution by Fuel</h2>
+          <p class="chart-description">Normalized stacked bar chart with interactive legend filtering</p>
+        </div>
         <div id="fuel_bar_chart" class="chart"></div>
       </div>
-      <!-- Engine and price chart -->
+
       <div class="chart-card">
-        <h2>Engine Size vs Average Price</h2>
-        <div id="engine_price_chart" class="chart"></div>
-      </div>
-      <!-- Brand chart -->
-      <div class="chart-card">
-        <h2>Top Vehicle Brands</h2>
+        <div class="card-header">
+          <h2>Top Vehicle Brands</h2>
+          <p class="chart-description">Top 10 brands ranked by vehicle count, colored by average price</p>
+        </div>
         <div id="brand_bar_chart" class="chart"></div>
       </div>
+
+      <!-- Engine and price chart - Full width -->
+      <div class="chart-card full-width">
+        <div class="card-header">
+          <h2>Engine Size vs Average Price</h2>
+          <p class="chart-description">Dual-axis chart showing vehicle count and average pricing across engine sizes</p>
+        </div>
+        <div id="engine_price_chart" class="chart"></div>
+      </div>
     </div>
-    <p class="footnote">
-      Data sources: GDP per Country (2020-2025) from Kaggle (codebynadiia); Cars Information dataset (cars_info.csv); Natural Earth administrative boundaries and graticules for map geometry.
-    </p>
+
+    <footer>
+      <p class="footnote">
+        <strong>Data sources:</strong> GDP per Country (2020-2025) from Kaggle (codebynadiia); 
+        Cars Information dataset (cars_info.csv); Natural Earth administrative boundaries and graticules for map geometry.
+      </p>
+      <p class="footnote">
+        <strong>Note:</strong> All aggregations are computed dynamically from source data using Vega-Lite transforms. 
+        Interactive features include tooltips, legend filtering, and parameter controls.
+      </p>
+    </footer>
   </div>
   <!-- Embed specifications -->
   <script src="js/vega_lite_vis.js"></script>

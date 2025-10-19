@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Horizontal bar chart of the top 10 vehicle brands by number of listings, colored by average price.",
   "height": 450,
-  "data": { "url": "../data/cars_agg_by_brand.csv" },
+  "data": { "url": "../data/cars_info.csv" },
   "title": {
     "text": "Top Vehicle Brands",
     "anchor": "start",
@@ -10,7 +10,19 @@
     "fontSize": 14
   },
   "transform": [
-    { "window": [ { "op": "row_number", "as": "rank" } ], "sort": [ { "field": "count", "order": "descending" } ] },
+    {
+      "aggregate": [
+        { "op": "count", "as": "count" },
+        { "op": "mean", "field": "Price", "as": "avg_price" },
+        { "op": "mean", "field": "CC", "as": "avg_cc" },
+        { "op": "mean", "field": "Year", "as": "avg_year" }
+      ],
+      "groupby": ["Brand"]
+    },
+    { 
+      "window": [{ "op": "row_number", "as": "rank" }], 
+      "sort": [{ "field": "count", "order": "descending" }] 
+    },
     { "filter": "datum.rank <= 10" }
   ],
   "mark": { "type": "bar", "cornerRadiusEnd": 4 },

@@ -2,22 +2,44 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Bar chart showing the number of vehicles within engine size bins, with a line overlay for average price.",
   "height": 450,
-  "data": { "url": "../data/cars_agg_by_cc_bin.csv" },
+  "data": { "url": "../data/cars_info.csv" },
   "title": {
     "text": "Engine Size vs Average Price",
     "anchor": "start",
     "color": "#003366",
     "fontSize": 14
   },
+  "transform": [
+    {
+      "bin": {
+        "step": 500,
+        "extent": [0, 6000]
+      },
+      "field": "CC",
+      "as": "CC_bin"
+    },
+    {
+      "aggregate": [
+        { "op": "count", "as": "count" },
+        { "op": "mean", "field": "Price", "as": "avg_price" }
+      ],
+      "groupby": ["CC_bin", "CC_bin_end"]
+    },
+    {
+      "calculate": "datum.CC_bin + '-' + datum.CC_bin_end",
+      "as": "CC_range"
+    }
+  ],
   "layer": [
     {
       "mark": { "type": "bar", "color": "#6baed6" },
       "encoding": {
         "x": {
           "field": "CC_bin",
-          "type": "ordinal",
+          "type": "quantitative",
           "title": "Engine Size (cc)",
-          "axis": { "labelAngle": -40 }
+          "axis": { "labelAngle": -40 },
+          "scale": { "domain": [0, 6000] }
         },
         "y": {
           "field": "count",
@@ -25,25 +47,29 @@
           "title": "Number of Vehicles"
         },
         "tooltip": [
-          { "field": "CC_bin", "type": "ordinal", "title": "Engine Size (cc)" },
+          { "field": "CC_range", "type": "nominal", "title": "Engine Size (cc)" },
           { "field": "count", "type": "quantitative", "title": "Count" },
           { "field": "avg_price", "type": "quantitative", "title": "Avg Price (USD)", "format": ",.0f" }
         ]
       }
     },
     {
-      "mark": { "type": "line", "color": "#e66101", "strokeWidth": 2 },
+      "mark": { "type": "line", "color": "#e66101", "strokeWidth": 2, "point": true },
       "encoding": {
         "x": {
           "field": "CC_bin",
-          "type": "ordinal"
+          "type": "quantitative"
         },
         "y": {
           "field": "avg_price",
           "type": "quantitative",
           "title": "Average Price (USD)",
           "axis": { "orient": "right", "titleColor": "#e66101" }
-        }
+        },
+        "tooltip": [
+          { "field": "CC_range", "type": "nominal", "title": "Engine Size (cc)" },
+          { "field": "avg_price", "type": "quantitative", "title": "Avg Price (USD)", "format": ",.0f" }
+        ]
       }
     }
   ],
