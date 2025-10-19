@@ -10,73 +10,33 @@
   "data": {
     "url": "data/cars_info.csv"
   },
-  "transform": [
-    {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
-    {"filter": "datum.Price != null"},
-    {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
-    {
-      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
-      "groupby": ["Brand"]
-    },
-    {
-      "window": [{"op": "rank", "as": "BrandRank"}],
-      "sort": [{"field": "BrandTotal", "order": "descending"}]
-    },
-    {"filter": "datum.BrandRank <= 15"},
-    {
-      "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
-      "groupby": ["Brand", "Year"]
-    }
+  "params": [
+    { "name": "brand_selection", "select": {"type": "point", "fields": ["Brand"]}, "bind": "legend" }
   ],
-  "mark": {
-    "type": "line",
-    "point": true,
-    "strokeWidth": 2,
-    "tooltip": true
-  },
+
+  "transform": [
+    {"calculate": "toNumber(replace(datum.Price, ',', ''))", "as": "PriceNum"},
+    {"calculate": "toNumber(datum.Year)", "as": "YearNum"},
+    {"filter": "YearNum >= 2010 && YearNum <= 2025"},
+    {"joinaggregate": [{"op": "count", "as": "BrandTotal"}], "groupby": ["Brand"]},
+    {"window": [{"op": "rank", "as": "BrandRank"}], "sort": [{"field": "BrandTotal", "order": "descending"}]},
+    {"filter": "datum.BrandRank <= 15"},
+    {"aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}], "groupby": ["Brand", "YearNum"]}
+  ],
+
+  "mark": {"type": "line", "point": true, "strokeWidth": 2, "tooltip": true},
+
   "encoding": {
-    "x": {
-      "field": "Year",
-      "type": "ordinal",
-      "axis": {
-        "title": "Year",
-        "labelAngle": -45,
-        "labelFontSize": 11
-      }
-    },
-    "y": {
-      "field": "AvgPrice",
-      "type": "quantitative",
-      "title": "Average Price (AUD)",
-      "axis": {
-        "format": "$,.0f",
-        "labelFontSize": 11
-      },
-      "scale": {
-        "zero": false
-      }
-    },
+    "x": {"field": "YearNum", "type": "ordinal", "axis": {"title": "Year", "labelAngle": -45, "labelFontSize": 11}},
+    "y": {"field": "AvgPrice", "type": "quantitative", "title": "Average Price (AUD)", "axis": {"format": "$,.0f", "labelFontSize": 11}, "scale": {"zero": false}},
     "color": {
-      "field": "Brand",
-      "type": "nominal",
-      "legend": {
-        "title": "Top 15 Brands",
-        "orient": "bottom",
-        "labelFontSize": 10,
-        "titleFontSize": 11,
-        "columns": 5
-      }
+      "field": "Brand", "type": "nominal",
+      "legend": {"title": "Top 15 Brands", "orient": "bottom", "labelFontSize": 10, "titleFontSize": 11, "columns": 5}
     },
-    "opacity": {
-      "condition": {
-        "param": "brand_selection",
-        "value": 1
-      },
-      "value": 0.2
-    },
+    "opacity": {"condition": {"param": "brand_selection", "value": 1}, "value": 0.2},
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
-      {"field": "Year", "type": "ordinal"},
+      {"field": "YearNum", "type": "ordinal", "title": "Year"},
       {"field": "AvgPrice", "type": "quantitative", "title": "Avg Price", "format": "$,.0f"}
     ]
   }

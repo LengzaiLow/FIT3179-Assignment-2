@@ -11,70 +11,48 @@
   "data": {
     "url": "data/cars_info.csv"
   },
-  "transform": [
-    {
-      "calculate": "trim(split(datum.Fuel, ',')[0])",
-      "as": "FuelClean"
-    },
-    {
-      "calculate": "datum.FuelClean == 'Unleaded Petrol' ? 'Petrol' : datum.FuelClean == 'Premium Unleaded Petrol' ? 'Premium Petrol' : datum.FuelClean == 'Diesel' ? 'Diesel' : indexOf(datum.FuelClean, 'Electric') >= 0 ? 'Electric/Hybrid' : indexOf(datum.FuelClean, 'Hybrid') >= 0 ? 'Electric/Hybrid' : 'Other'",
-      "as": "FuelType"
-    },
-    {
-      "filter": "indexof(['Toyota', 'Ford', 'Holden', 'Mazda', 'Hyundai', 'Volkswagen', 'Mitsubishi', 'Nissan', 'Kia', 'Subaru'], datum.Brand) >= 0"
+  "params": [
+    { "name": "yearParam", "value": "All",
+      "bind": {"input": "select", "options": ["All", 2020, 2021, 2022, 2023, 2024, 2025], "name": "Year: "}
     }
   ],
-  "mark": {
-    "type": "bar",
-    "tooltip": true
-  },
+
+  "transform": [
+    {"filter": "yearParam == 'All' || toNumber(datum.Year) == toNumber(yearParam)"},
+
+    {"calculate": "lower(datum.Fuel)", "as": "fuel_lc"},
+    {"calculate":
+      "indexof(datum.fuel_lc,'premium')>=0 ? 'Premium Petrol' : indexof(datum.fuel_lc,'unleaded')>=0 || indexof(datum.fuel_lc,'petrol')>=0 ? 'Petrol' : indexof(datum.fuel_lc,'diesel')>=0 ? 'Diesel' : indexof(datum.fuel_lc,'electric')>=0 || indexof(datum.fuel_lc,'hybrid')>=0 ? 'Electric/Hybrid' : 'Other'",
+     "as": "FuelType"},
+
+    {"aggregate": [{"op":"count","as":"count"}], "groupby": ["Brand","FuelType"]},
+
+    {"joinaggregate": [{"op":"sum","field":"count","as":"brand_total"}], "groupby": ["Brand"]},
+
+    {"window":[{"op":"dense_rank","as":"brand_rank"}], "sort":[{"field":"brand_total","order":"descending"}]},
+    {"filter":"datum.brand_rank <= 10"},
+
+    {"calculate":"datum.count / datum.brand_total","as":"pct"}
+  ],
+
+  "mark": {"type":"bar", "tooltip": true},
+
   "encoding": {
-    "y": {
-      "field": "Brand",
-      "type": "nominal",
-      "sort": {"op": "count", "order": "descending"},
-      "axis": {
-        "title": null,
-        "labelFontSize": 12,
-        "labelLimit": 120
-      }
-    },
-    "x": {
-      "aggregate": "count",
-      "type": "quantitative",
-      "title": "Proportion of Vehicles",
-      "stack": "normalize",
-      "axis": {
-        "format": ".0%",
-        "labelFontSize": 11
-      }
-    },
+    "y": {"field":"Brand","type":"nominal","sort":{"field":"brand_total","order":"descending"}, "axis":{"title": null, "labelFontSize": 12}},
+    "x": {"aggregate":"sum","field":"count","type":"quantitative","stack":"normalize","title":"Percentage","axis":{"format":".0%","labelFontSize":11}},
     "color": {
-      "field": "FuelType",
-      "type": "nominal",
-      "scale": {
-        "domain": ["Petrol", "Premium Petrol", "Diesel", "Electric/Hybrid", "Other"],
-        "range": ["#4c78a8", "#f58518", "#54a24b", "#e45756", "#9d9d9d"]
-      },
-      "legend": {
-        "title": "Fuel Type",
-        "orient": "bottom",
-        "labelFontSize": 11,
-        "titleFontSize": 12,
-        "columns": 5
-      }
+      "field":"FuelType","type":"nominal",
+      "scale":{"domain":["Petrol","Premium Petrol","Diesel","Electric/Hybrid","Other"],
+               "range":["#4c78a8","#f58518","#54a24b","#e45756","#9d9d9d"]},
+      "legend":{"title":"Fuel Type","orient":"bottom","labelFontSize":11,"titleFontSize":12,"columns":5}
     },
     "tooltip": [
-      {"field": "Brand", "type": "nominal", "title": "Brand"},
-      {"field": "FuelType", "type": "nominal", "title": "Fuel Type"},
-      {"aggregate": "count", "type": "quantitative", "title": "Number of Vehicles"}
+      {"field":"Brand","type":"nominal"},
+      {"field":"FuelType","type":"nominal","title":"Fuel"},
+      {"aggregate":"sum","field":"count","type":"quantitative","title":"Vehicles"},
+      {"field":"pct","type":"quantitative","title":"Share","format":".1%"}
     ]
   },
-  "config": {
-    "axis": {
-      "labelFontSize": 11,
-      "titleFontSize": 12
-    },
-    "background": "#fafbfc"
-  }
+
+  "config": {"axis":{"labelFontSize":11,"titleFontSize":12}, "background":"#fafbfc"}
 }
