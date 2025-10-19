@@ -8,7 +8,7 @@
     "color": "#003366"
   },
   "width": "container",
-  "height": 500,
+  "height": 600,
   "projection": { "type": "equalEarth" },
   "params": [
     {

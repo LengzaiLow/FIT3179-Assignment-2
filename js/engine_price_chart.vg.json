@@ -24,10 +24,10 @@
         { "op": "count", "as": "count" },
         { "op": "mean", "field": "Price", "as": "avg_price" }
       ],
-      "groupby": ["CC_bin", "CC_bin_end"]
+      "groupby": ["CC_bin"]
     },
     {
-      "calculate": "datum.CC_bin + '-' + datum.CC_bin_end",
+      "calculate": "datum.CC_bin + '-' + (datum.CC_bin + 500)",
       "as": "CC_range"
     }
   ],
