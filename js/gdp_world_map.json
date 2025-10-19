@@ -16,11 +16,24 @@
     }
   },
   "title": {
-    "text": "Global GDP Distribution (2025)",
-    "subtitle": "Logarithmic scale to show economic disparities across nations",
+    "text": "Global GDP Distribution (2020-2025)",
+    "subtitle": "Use the slider below to explore GDP changes over time",
     "anchor": "start"
   },
   "projection": { "type": "equalEarth" },
+  "params": [
+    {
+      "name": "yearSelect",
+      "value": 2025,
+      "bind": {
+        "input": "range",
+        "min": 2020,
+        "max": 2025,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
   "layer": [
     {
       "data": { "sphere": {} },
@@ -50,19 +63,19 @@
           "lookup": "properties.NAME",
           "from": {
             "data": { "url": "data/2020-2025.csv" },
-            "key": "Country",
-            "fields": ["2025"]
-          }
+            "key": "Country"
+          },
+          "as": "gdpData"
         },
         {
-          "calculate": "toNumber(datum['2025'])",
-          "as": "gdp_2025"
+          "calculate": "datum.gdpData == null ? null : toNumber(datum.gdpData[yearSelect])",
+          "as": "gdp_value"
         }
       ],
       "mark": { "type": "geoshape" },
       "encoding": {
         "color": {
-          "field": "gdp_2025",
+          "field": "gdp_value",
           "type": "quantitative",
           "title": "GDP (USD)",
           "scale": {
@@ -73,7 +86,7 @@
         },
         "tooltip": [
           { "field": "properties.NAME", "type": "nominal", "title": "Country" },
-          { "field": "gdp_2025", "type": "quantitative", "title": "GDP (USD)", "format": "~s" }
+          { "field": "gdp_value", "type": "quantitative", "title": "GDP (USD)", "format": "~s" }
         ]
       }
     }

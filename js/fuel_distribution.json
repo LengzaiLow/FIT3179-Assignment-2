@@ -26,9 +26,7 @@
     },
     {
       "window": [{"op": "rank", "as": "BrandRank"}],
-      "sort": [{"field": "BrandTotal", "order": "descending"}],
-      "frame": [null, null],
-      "groupby": []
+      "sort": [{"field": "BrandTotal", "order": "descending"}]
     },
     {
       "filter": "datum.BrandRank <= 10"

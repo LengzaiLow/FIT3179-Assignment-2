@@ -5,8 +5,8 @@
     "fontSize": 16,
     "fontWeight": "bold"
   },
-  "width": 450,
-  "height": 350,
+  "width": "container",
+  "height": 400,
   "data": {
     "url": "data/cars_info.csv"
   },
@@ -39,7 +39,7 @@
       "axis": {
         "title": "Year",
         "labelAngle": -45,
-        "labelFontSize": 10
+        "labelFontSize": 11
       }
     },
     "y": {
@@ -48,7 +48,7 @@
       "title": "Average Price (AUD)",
       "axis": {
         "format": "$,.0f",
-        "labelFontSize": 10
+        "labelFontSize": 11
       },
       "scale": {
         "zero": false
@@ -57,7 +57,12 @@
     "color": {
       "field": "Brand",
       "type": "nominal",
-      "legend": null
+      "legend": {
+        "title": "Selected Brand",
+        "orient": "bottom",
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},

@@ -5,8 +5,8 @@
     "fontSize": 16,
     "fontWeight": "bold"
   },
-  "width": 450,
-  "height": 350,
+  "width": "container",
+  "height": 400,
   "data": {
     "url": "data/cars_info.csv"
   },
@@ -39,7 +39,7 @@
       "sort": "-x",
       "axis": {
         "title": null,
-        "labelFontSize": 11
+        "labelFontSize": 12
       }
     },
     "x": {
@@ -48,7 +48,7 @@
       "title": "Number of Listings",
       "axis": {
         "format": ",",
-        "labelFontSize": 10
+        "labelFontSize": 11
       }
     },
     "color": {

@@ -6,8 +6,8 @@
     "fontWeight": "bold",
     "anchor": "start"
   },
-  "width": 500,
-  "height": 400,
+  "width": "container",
+  "height": 450,
   "data": {
     "url": "data/2020-2025.csv"
   },
@@ -38,10 +38,10 @@
     "x": {
       "field": "GDP_2025",
       "type": "quantitative",
-      "title": "GDP (Billions USD)",
+      "title": "GDP (Millions USD)",
       "axis": {
-        "format": ",.0f",
-        "labelFontSize": 10
+        "format": "~s",
+        "labelFontSize": 11
       }
     },
     "color": {
@@ -51,11 +51,17 @@
         "scheme": "blues",
         "reverse": false
       },
-      "legend": null
+      "legend": {
+        "title": "GDP (Millions USD)",
+        "format": "~s",
+        "orient": "right",
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
     },
     "tooltip": [
       {"field": "Country", "type": "nominal", "title": "Country"},
-      {"field": "GDP_2025", "type": "quantitative", "title": "GDP (Billions USD)", "format": ",.0f"}
+      {"field": "GDP_2025", "type": "quantitative", "title": "GDP (Millions USD)", "format": "~s"}
     ]
   }
 }
