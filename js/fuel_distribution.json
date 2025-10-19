@@ -21,7 +21,7 @@
       "as": "FuelType"
     },
     {
-      "filter": "indexof(['Toyota', 'Ford', 'Holden', 'Mazda', 'Nissan', 'Hyundai', 'Volkswagen', 'Honda', 'BMW', 'Mercedes-Benz'], datum.Brand) >= 0"
+      "filter": "indexof(['Toyota', 'Ford', 'Holden', 'Mazda', 'Hyundai', 'Volkswagen', 'Mitsubishi', 'Nissan', 'Kia', 'Subaru'], datum.Brand) >= 0"
     }
   ],
   "mark": {

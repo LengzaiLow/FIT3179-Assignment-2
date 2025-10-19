@@ -23,7 +23,6 @@
       "sort": [{"field": "BrandTotal", "order": "descending"}]
     },
     {"filter": "datum.BrandRank <= 15"},
-    {"filter": {"param": "brand_selection"}},
     {
       "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
       "groupby": ["Brand", "Year"]
@@ -32,7 +31,7 @@
   "mark": {
     "type": "line",
     "point": true,
-    "strokeWidth": 3,
+    "strokeWidth": 2,
     "tooltip": true
   },
   "encoding": {
@@ -61,11 +60,19 @@
       "field": "Brand",
       "type": "nominal",
       "legend": {
-        "title": "Selected Brand",
+        "title": "Top 15 Brands",
         "orient": "bottom",
-        "labelFontSize": 11,
-        "titleFontSize": 12
+        "labelFontSize": 10,
+        "titleFontSize": 11,
+        "columns": 5
       }
+    },
+    "opacity": {
+      "condition": {
+        "param": "brand_selection",
+        "value": 1
+      },
+      "value": 0.2
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
