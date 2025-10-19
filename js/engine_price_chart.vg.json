@@ -3,6 +3,7 @@
   "description": "Bar chart showing the number of vehicles within engine size bins, with a line overlay for average price.",
   "width": "container",
   "height": 450,
+  "padding": 5,
   "data": { "url": "data/cars_info.csv" },
   "title": {
     "text": "Engine Size vs Average Price",
@@ -11,6 +12,9 @@
     "fontSize": 14
   },
   "transform": [
+    {
+      "filter": "datum.CC != null && datum.Price != null"
+    },
     {
       "bin": {
         "step": 500,
@@ -27,13 +31,13 @@
       "groupby": ["CC_bin"]
     },
     {
-      "calculate": "datum.CC_bin + '-' + (datum.CC_bin + 500)",
+      "calculate": "datum.CC_bin + ' - ' + (datum.CC_bin + 500)",
       "as": "CC_range"
     }
   ],
   "layer": [
     {
-      "mark": { "type": "bar", "color": "#6baed6" },
+      "mark": { "type": "bar", "color": "#6baed6", "opacity": 0.7 },
       "encoding": {
         "x": {
           "field": "CC_bin",
@@ -55,7 +59,7 @@
       }
     },
     {
-      "mark": { "type": "line", "color": "#e66101", "strokeWidth": 2, "point": true },
+      "mark": { "type": "line", "color": "#e66101", "strokeWidth": 3, "point": { "filled": true, "size": 80 } },
       "encoding": {
         "x": {
           "field": "CC_bin",
@@ -76,6 +80,7 @@
   ],
   "resolve": { "scale": { "y": "independent" } },
   "config": {
-    "axis": { "labelFontSize": 10, "titleFontSize": 11 }
+    "axis": { "labelFontSize": 11, "titleFontSize": 12 },
+    "background": "#fafbfc"
   }
 }
