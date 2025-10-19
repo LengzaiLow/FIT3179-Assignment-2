@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Global Economy and Car Market Dashboard</title>
+  <title>Global Economy Meets Automotive Markets: An Interactive Analysis</title>
   <!-- Vega & Vega-Lite -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
@@ -14,60 +14,128 @@
 <body>
   <div class="container">
     <header>
-      <h1>Interactive Global Economy and Car Market Dashboard</h1>
+      <h1>Global Economy Meets Automotive Markets</h1>
+      <p class="subtitle">An Interactive Analysis of GDP Distribution and Car Market Trends</p>
       <p class="intro">
-        Explore the economic output of countries around the world alongside key trends in the automotive market. 
-        The visualizations below showcase GDP distribution, vehicle type preferences by fuel type, the relationship 
-        between engine size and pricing, and the most popular car brands in the market.
+        The global automotive market reflects economic diversity, consumer preferences, and technological evolution. 
+        This visualization explores how economic output varies across nations while examining vehicle characteristics 
+        that define modern car markets—from fuel efficiency and brand popularity to engine performance and pricing.
       </p>
     </header>
 
-    <div class="viz-grid">
-      <!-- Map chart - Full width -->
+    <!-- Section 1: Global Economic Context -->
+    <section class="story-section">
       <div class="chart-card full-width">
         <div class="card-header">
-          <h2>Global GDP by Country (2020-2025)</h2>
-          <p class="chart-description">Interactive map showing GDP distribution across countries with year selection</p>
+          <h2>🌍 The Economic Landscape: GDP Across Nations (2020-2025)</h2>
+          <p class="chart-description">
+            Economic power is unevenly distributed globally. Use the year slider to observe how GDP evolved through 
+            the pandemic recovery and into 2025. The Equal-Earth projection provides an area-accurate view of national wealth.
+          </p>
         </div>
         <div id="gdp_map" class="chart"></div>
-      </div>
-
-      <!-- Two column layout for medium charts -->
-      <div class="chart-card">
-        <div class="card-header">
-          <h2>Vehicle Type Distribution by Fuel</h2>
-          <p class="chart-description">Normalized stacked bar chart with interactive legend filtering</p>
+        <div class="insight">
+          <p><strong>Key Insight:</strong> Major economies like the United States, China, and European nations dominate 
+          global GDP, while automotive preferences often correlate with economic development and environmental policies.</p>
         </div>
-        <div id="fuel_bar_chart" class="chart"></div>
       </div>
+    </section>
 
-      <div class="chart-card">
-        <div class="card-header">
-          <h2>Top Vehicle Brands</h2>
-          <p class="chart-description">Top 10 brands ranked by vehicle count, colored by average price</p>
+    <!-- Section 2: Fuel Types and Vehicle Categories -->
+    <section class="story-section">
+      <h2 class="section-heading">⛽ Fuel Preferences Shape Vehicle Markets</h2>
+      <p class="section-text">
+        Environmental concerns and fuel costs drive consumer choices. Different fuel types attract distinct vehicle 
+        categories—from diesel workhorses to premium petrol sports cars and emerging electric options.
+      </p>
+      
+      <div class="viz-grid">
+        <div class="chart-card">
+          <div class="card-header">
+            <h3>Vehicle Type Distribution by Fuel</h3>
+            <p class="chart-description">
+              Click legend items to filter specific vehicle types. Notice how diesel dominates commercial vehicles 
+              while premium unleaded powers luxury and performance segments.
+            </p>
+          </div>
+          <div id="fuel_bar_chart" class="chart"></div>
+          <div class="insight">
+            <p><strong>Observation:</strong> Diesel vehicles show strong representation in wagons and utility vehicles, 
+            reflecting their use in commercial and family transportation. Premium unleaded fuels luxury sedans and 
+            performance cars.</p>
+          </div>
         </div>
-        <div id="brand_bar_chart" class="chart"></div>
-      </div>
 
-      <!-- Engine and price chart - Full width -->
+        <div class="chart-card">
+          <div class="card-header">
+            <h3>Market Leaders: Top 10 Brands</h3>
+            <p class="chart-description">
+              Brand popularity varies by market availability and consumer trust. Color intensity reveals average 
+              pricing—darker greens indicate premium positioning.
+            </p>
+          </div>
+          <div id="brand_bar_chart" class="chart"></div>
+          <div class="insight">
+            <p><strong>Market Dynamics:</strong> Toyota leads in volume, reflecting reliability reputation and broad 
+            model range. European luxury brands command higher average prices despite smaller market share.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Engine Performance and Pricing -->
+    <section class="story-section">
       <div class="chart-card full-width">
         <div class="card-header">
-          <h2>Engine Size vs Average Price</h2>
-          <p class="chart-description">Dual-axis chart showing vehicle count and average pricing across engine sizes</p>
+          <h2>🔧 Engine Size vs Market Pricing: The Performance-Price Relationship</h2>
+          <p class="chart-description">
+            Larger engines typically deliver more power but come at a price premium. This dual-axis visualization 
+            reveals both market volume (blue bars) and average pricing (orange line) across engine size categories.
+          </p>
         </div>
         <div id="engine_price_chart" class="chart"></div>
+        <div class="insight">
+          <p><strong>Pricing Pattern:</strong> Vehicles with 1,500-2,500cc engines dominate the market volume—the 
+          sweet spot for family cars and sedans. Prices rise sharply beyond 4,000cc as engines enter luxury and 
+          performance vehicle territory. Sub-1,000cc engines serve economy segments with lower price points.</p>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="story-section conclusion">
+      <h2>💡 Understanding Market Dynamics</h2>
+      <p class="section-text">
+        These visualizations reveal interconnected patterns: economic development influences automotive demand, 
+        fuel types determine vehicle applications, brand reputation drives market share, and engine size correlates 
+        with pricing tiers. Together, they tell the story of a diverse global automotive market shaped by economics, 
+        technology, and consumer preferences.
+      </p>
+    </section>
 
     <footer>
-      <p class="footnote">
-        <strong>Data sources:</strong> GDP per Country (2020-2025) from Kaggle (codebynadiia); 
-        Cars Information dataset (cars_info.csv); Natural Earth administrative boundaries and graticules for map geometry.
-      </p>
-      <p class="footnote">
-        <strong>Note:</strong> All aggregations are computed dynamically from source data using Vega-Lite transforms. 
-        Interactive features include tooltips, legend filtering, and parameter controls.
-      </p>
+      <div class="footer-content">
+        <div class="data-sources">
+          <h3>📊 Data Sources</h3>
+          <ul>
+            <li><strong>Economic Data:</strong> GDP per Country (2020-2025) from Kaggle by codebynadiia</li>
+            <li><strong>Automotive Data:</strong> Cars Information dataset with 17,000+ vehicle listings</li>
+            <li><strong>Geographic Data:</strong> Natural Earth administrative boundaries (110m resolution)</li>
+          </ul>
+        </div>
+        <div class="methodology">
+          <h3>🔬 Methodology</h3>
+          <p>
+            All data aggregations are computed dynamically using Vega-Lite transforms. The choropleth map uses 
+            Equal-Earth projection for area-accurate representation. Normalized stacking reveals proportional 
+            distributions independent of absolute volumes. Dual-axis encoding separates magnitude from rate comparison.
+          </p>
+        </div>
+        <p class="footnote">
+          <strong>Visualization by:</strong> FIT3179 Data Visualisation 2 Assignment | 
+          Created with Vega-Lite v5 | October 2025
+        </p>
+      </div>
     </footer>
   </div>
   <!-- Embed specifications -->

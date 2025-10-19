@@ -3,7 +3,7 @@
   "description": "Normalised stacked bar chart showing the distribution of vehicle types across fuel categories.",
   "width": 500,
   "height": 450,
-  "data": { "url": "data/cars_info.csv" },
+  "data": { "url": "../data/cars_info.csv" },
   "title": {
     "text": "Vehicle Type Distribution by Fuel",
     "anchor": "start",
