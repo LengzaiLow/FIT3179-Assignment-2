@@ -24,28 +24,28 @@
     },
     {
       "data": {
-        "url": "../data/WorldMapWithGraticules.topojson",
+        "url": "data/WorldMapWithGraticules.topojson",
         "format": { "type": "topojson", "feature": "ne_110m_graticules_30" }
       },
       "mark": { "type": "geoshape", "stroke": "#d6dee6", "strokeWidth": 0.5 }
     },
     {
       "data": {
-        "url": "../data/ne_110m_admin_0_countries2.json",
+        "url": "data/ne_110m_admin_0_countries2.json",
         "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
       },
       "mark": { "type": "geoshape", "fill": "#ffffff", "stroke": "#c0c0c0", "strokeWidth": 0.4 }
     },
     {
       "data": {
-        "url": "../data/ne_110m_admin_0_countries2.json",
+        "url": "data/ne_110m_admin_0_countries2.json",
         "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
       },
       "transform": [
         {
           "lookup": "properties.NAME",
           "from": {
-            "data": { "url": "../data/2020-2025.csv" },
+            "data": { "url": "data/2020-2025.csv" },
             "key": "Country"
           },
           "as": "row"
