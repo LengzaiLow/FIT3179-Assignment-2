@@ -7,8 +7,6 @@
     "anchor": "start",
     "color": "#003366"
   },
-  "width": "container",
-  "height": 600,
   "projection": { "type": "equalEarth" },
   "params": [
     {
