@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "GDP Trends: Top 10 Economies (2020-2025)",
+    "fontSize": 18,
+    "fontWeight": "bold"
+  },
+  "width": 700,
+  "height": 400,
+  "data": {
+    "url": "data/2020-2025.csv"
+  },
+  "params": [
+    {
+      "name": "country_selection",
+      "select": {"type": "point", "fields": ["Country"]},
+      "bind": "legend"
+    }
+  ],
+  "transform": [
+    {"filter": "datum['2025'] != null"},
+    {"calculate": "toNumber(datum['2025'])", "as": "GDP_2025"},
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "GDP_2025", "order": "descending"}]
+    },
+    {"filter": "datum.rank <= 10"},
+    {
+      "fold": ["2020", "2021", "2022", "2023", "2024", "2025"],
+      "as": ["Year", "GDP"]
+    },
+    {"calculate": "toNumber(datum.GDP)", "as": "GDP_Value"}
+  ],
+  "mark": {
+    "type": "line",
+    "point": true,
+    "strokeWidth": 2.5
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Year",
+        "labelAngle": 0,
+        "labelFontSize": 11
+      }
+    },
+    "y": {
+      "field": "GDP_Value",
+      "type": "quantitative",
+      "title": "GDP (Billions USD)",
+      "axis": {
+        "format": ",.0f",
+        "labelFontSize": 10
+      }
+    },
+    "color": {
+      "field": "Country",
+      "type": "nominal",
+      "scale": {
+        "scheme": "category10"
+      },
+      "legend": {
+        "title": "Country (Click to highlight)",
+        "labelFontSize": 11,
+        "orient": "right"
+      }
+    },
+    "opacity": {
+      "condition": {"param": "country_selection", "value": 1},
+      "value": 0.2
+    },
+    "strokeWidth": {
+      "condition": {"param": "country_selection", "value": 3},
+      "value": 1
+    },
+    "tooltip": [
+      {"field": "Country", "type": "nominal"},
+      {"field": "Year", "type": "ordinal"},
+      {"field": "GDP_Value", "type": "quantitative", "title": "GDP (Billions USD)", "format": ",.0f"}
+    ]
+  }
+}

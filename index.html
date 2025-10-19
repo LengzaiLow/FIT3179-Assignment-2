@@ -1,144 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Global Economy Meets Automotive Markets: An Interactive Analysis</title>
-  <!-- Vega & Vega-Lite -->
-  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global GDP & Australia's Car Market | FIT3179 Data Visualisation 2</title>
+    
+    <!-- Pure CSS Framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Vega, Vega-Lite, and Vega-Embed -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Global Economy Meets Automotive Markets</h1>
-      <p class="subtitle">An Interactive Analysis of GDP Distribution and Car Market Trends</p>
-      <p class="intro">
-        The global automotive market reflects economic diversity, consumer preferences, and technological evolution. 
-        This visualization explores how economic output varies across nations while examining vehicle characteristics 
-        that define modern car markets—from fuel efficiency and brand popularity to engine performance and pricing.
-      </p>
-    </header>
 
-    <!-- Section 1: Global Economic Context -->
-    <section class="story-section">
-      <div class="chart-card full-width">
-        <div class="card-header">
-          <h2>🌍 The Economic Landscape: GDP Across Nations (2020-2025)</h2>
-          <p class="chart-description">
-            Economic power is unevenly distributed globally. Use the year slider to observe how GDP evolved through 
-            the pandemic recovery and into 2025. The Equal-Earth projection provides an area-accurate view of national wealth.
-          </p>
-        </div>
-        <div id="gdp_map" class="chart"></div>
-        <div class="insight">
-          <p><strong>Key Insight:</strong> Major economies like the United States, China, and European nations dominate 
-          global GDP, while automotive preferences often correlate with economic development and environmental policies.</p>
-        </div>
-      </div>
-    </section>
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1>💰 Economic Power & Automotive Choices</h1>
+        <p class="subtitle">Exploring the Relationship Between Global GDP and Australia's Car Market</p>
+        <p class="author-info">FIT3179 Data Visualisation 2 | October 2025</p>
+    </div>
 
-    <!-- Section 2: Fuel Types and Vehicle Categories -->
-    <section class="story-section">
-      <h2 class="section-heading">⛽ Fuel Preferences Shape Vehicle Markets</h2>
-      <p class="section-text">
-        Environmental concerns and fuel costs drive consumer choices. Different fuel types attract distinct vehicle 
-        categories—from diesel workhorses to premium petrol sports cars and emerging electric options.
-      </p>
-      
-      <div class="viz-grid">
-        <div class="chart-card">
-          <div class="card-header">
-            <h3>Vehicle Type Distribution by Fuel</h3>
-            <p class="chart-description">
-              Click legend items to filter specific vehicle types. Notice how diesel dominates commercial vehicles 
-              while premium unleaded powers luxury and performance segments.
+    <!-- Main Content -->
+    <div class="content-wrapper">
+
+        <!-- Introduction Section -->
+        <div class="section">
+            <h2 class="section-title">🌍 Introduction: Wealth and Wheels</h2>
+            <p class="section-description">
+                In an interconnected global economy, national wealth shapes consumer behavior across industries—from technology 
+                to real estate, and notably, <strong>the automotive sector</strong>. This visualization explores how <strong>economic 
+                output (GDP)</strong> varies dramatically across nations, and examines the characteristics of Australia's vehicle 
+                market, including brand preferences, fuel types, and pricing trends.
             </p>
-          </div>
-          <div id="fuel_bar_chart" class="chart"></div>
-          <div class="insight">
-            <p><strong>Observation:</strong> Diesel vehicles show strong representation in wagons and utility vehicles, 
-            reflecting their use in commercial and family transportation. Premium unleaded fuels luxury sedans and 
-            performance cars.</p>
-          </div>
-        </div>
-
-        <div class="chart-card">
-          <div class="card-header">
-            <h3>Market Leaders: Top 10 Brands</h3>
-            <p class="chart-description">
-              Brand popularity varies by market availability and consumer trust. Color intensity reveals average 
-              pricing—darker greens indicate premium positioning.
+            <p class="section-description">
+                By juxtaposing <strong>global economic data from 2020-2025</strong> with <strong>Australian car listings</strong>, 
+                we reveal patterns about how economic recovery from the COVID-19 pandemic influenced consumer purchasing power and 
+                automotive preferences.
             </p>
-          </div>
-          <div id="brand_bar_chart" class="chart"></div>
-          <div class="insight">
-            <p><strong>Market Dynamics:</strong> Toyota leads in volume, reflecting reliability reputation and broad 
-            model range. European luxury brands command higher average prices despite smaller market share.</p>
-          </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <span class="stat-number">198</span>
+                    <span class="stat-label">Countries Analyzed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">17K+</span>
+                    <span class="stat-label">Car Listings</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">2020-2025</span>
+                    <span class="stat-label">Analysis Period</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Section 3: Engine Performance and Pricing -->
-    <section class="story-section">
-      <div class="chart-card full-width">
-        <div class="card-header">
-          <h2>🔧 Engine Size vs Market Pricing: The Performance-Price Relationship</h2>
-          <p class="chart-description">
-            Larger engines typically deliver more power but come at a price premium. This dual-axis visualization 
-            reveals both market volume (blue bars) and average pricing (orange line) across engine size categories.
-          </p>
-        </div>
-        <div id="engine_price_chart" class="chart"></div>
-        <div class="insight">
-          <p><strong>Pricing Pattern:</strong> Vehicles with 1,500-2,500cc engines dominate the market volume—the 
-          sweet spot for family cars and sedans. Prices rise sharply beyond 4,000cc as engines enter luxury and 
-          performance vehicle territory. Sub-1,000cc engines serve economy segments with lower price points.</p>
-        </div>
-      </div>
-    </section>
+        <!-- Section 1: Global Economic Landscape -->
+        <div class="section">
+            <h2 class="section-title">📊 The Global Economic Landscape (2025)</h2>
+            <p class="section-description">
+                The world's wealth is highly concentrated. The United States and China dominate, together accounting for nearly 
+                <strong>45% of global GDP</strong>. The visualization below ranks the top 20 economies, showing the vast disparities 
+                in economic output.
+            </p>
 
-    <!-- Conclusion -->
-    <section class="story-section conclusion">
-      <h2>💡 Understanding Market Dynamics</h2>
-      <p class="section-text">
-        These visualizations reveal interconnected patterns: economic development influences automotive demand, 
-        fuel types determine vehicle applications, brand reputation drives market share, and engine size correlates 
-        with pricing tiers. Together, they tell the story of a diverse global automotive market shaped by economics, 
-        technology, and consumer preferences.
-      </p>
-    </section>
+            <div class="vis-container">
+                <div id="vis_gdp_bar"></div>
+            </div>
 
-    <footer>
-      <div class="footer-content">
-        <div class="data-sources">
-          <h3>📊 Data Sources</h3>
-          <ul>
-            <li><strong>Economic Data:</strong> GDP per Country (2020-2025) from Kaggle by codebynadiia</li>
-            <li><strong>Automotive Data:</strong> Cars Information dataset with 17,000+ vehicle listings</li>
-            <li><strong>Geographic Data:</strong> Natural Earth administrative boundaries (110m resolution)</li>
-          </ul>
+            <div class="insight-box">
+                <h3>💡 Key Insight</h3>
+                <p>China's GDP surpassed <strong>$19.2 trillion</strong> in 2025, while the top 20 economies represent 
+                over <strong>80% of global economic output</strong>. Australia ranks among the top 15, positioning 
+                it as a wealthy nation with significant consumer purchasing power.</p>
+            </div>
+
+            <h3 class="section-subtitle">🗺️ Global GDP Distribution</h3>
+            <p class="section-description">
+                This choropleth map visualizes GDP distribution across the globe. Darker blue indicates higher GDP, 
+                revealing economic powerhouses in North America, Europe, and East Asia.
+            </p>
+
+            <div class="vis-container">
+                <div id="vis_world_map"></div>
+            </div>
         </div>
-        <div class="methodology">
-          <h3>🔬 Methodology</h3>
-          <p>
-            All data aggregations are computed dynamically using Vega-Lite transforms. The choropleth map uses 
-            Equal-Earth projection for area-accurate representation. Normalized stacking reveals proportional 
-            distributions independent of absolute volumes. Dual-axis encoding separates magnitude from rate comparison.
-          </p>
+
+        <!-- Section 2: GDP Trends -->
+        <div class="section">
+            <h2 class="section-title">📈 Economic Recovery: Top 10 Economies (2020-2025)</h2>
+            <p class="section-description">
+                The COVID-19 pandemic caused unprecedented economic disruption in 2020. This interactive chart tracks how 
+                the world's largest economies recovered and grew over five years. <strong>Click on country names in the 
+                legend</strong> to highlight specific trajectories and compare recovery patterns.
+            </p>
+
+            <div class="interaction-note">
+                <strong>💡 Interactive Feature:</strong> Click on any country in the legend to highlight its trend. 
+                Click again to deselect. Notice how China maintained steady growth while others experienced more volatility.
+            </div>
+
+            <div class="vis-container">
+                <div id="vis_gdp_trends"></div>
+            </div>
+
+            <div class="insight-box">
+                <h3>💡 Key Insight</h3>
+                <p>Most major economies experienced V-shaped recoveries, with GDP rebounding strongly in 2021-2022. 
+                China's steady upward trajectory contrasts with the volatility seen in other nations. By 2025, 
+                global GDP reached pre-pandemic growth rates, setting the stage for increased consumer spending.</p>
+            </div>
         </div>
-        <p class="footnote">
-          <strong>Visualization by:</strong> FIT3179 Data Visualisation 2 Assignment | 
-          Created with Vega-Lite v5 | October 2025
-        </p>
-      </div>
-    </footer>
-  </div>
-  <!-- Embed specifications -->
-  <script src="js/vega_lite_vis.js"></script>
+
+        <!-- Section 3: Australia's Car Market -->
+        <div class="section">
+            <h2 class="section-title">🚗 Australia's Automotive Landscape</h2>
+            <p class="section-description">
+                Australia's car market reflects its economic prosperity and geographic challenges. With vast distances 
+                and a preference for reliability, certain brands dominate. <strong>Toyota leads overwhelmingly</strong>, 
+                followed by Ford, Holden (pre-discontinuation), and other established manufacturers.
+            </p>
+
+            <h3 class="section-subtitle">Top Brands by Popularity</h3>
+            <p class="section-description">
+                Based on listing counts, Toyota commands nearly <strong>25% of the market</strong>. This dominance reflects 
+                Australian priorities: reliability, resale value, and suitability for both urban and rural driving.
+            </p>
+
+            <div class="dashboard">
+                <div class="dashboard-item">
+                    <div id="vis_brand_popularity"></div>
+                </div>
+                <div class="dashboard-item">
+                    <div id="vis_brand_price"></div>
+                </div>
+            </div>
+
+            <div class="interaction-note">
+                <strong>💡 Interactive Dashboard:</strong> Click on any brand in the left chart to see how its 
+                average price evolved from 2010-2022 in the right chart. Notice price variations between budget 
+                brands like Holden and premium brands like Mercedes-Benz.
+            </div>
+        </div>
+
+        <!-- Section 4: Fuel Types -->
+        <div class="section">
+            <h3 class="section-subtitle">⛽ Fuel Preferences Across Brands</h3>
+            <p class="section-description">
+                Australia's fuel preferences vary by brand and vehicle type. While <strong>petrol remains dominant</strong>, 
+                diesel is popular for utility vehicles and trucks. Premium brands show higher adoption of premium petrol 
+                and emerging hybrid technologies.
+            </p>
+
+            <div class="vis-container">
+                <div id="vis_fuel_dist"></div>
+            </div>
+
+            <div class="insight-box">
+                <h3>💡 Key Insight</h3>
+                <p>Toyota and Mitsubishi show balanced fuel portfolios with significant diesel representation, 
+                reflecting their dominance in the 4WD/SUV segment. Premium brands like Mercedes-Benz and BMW 
+                have higher diesel adoption, popular for their efficiency and torque in luxury vehicles.</p>
+            </div>
+        </div>
+
+        <!-- Section 5: GDP vs Car Prices -->
+        <div class="section">
+            <h2 class="section-title">💵 The Economic-Automotive Connection</h2>
+            <p class="section-description">
+                Does economic growth influence car prices? This dual-axis chart compares <strong>global GDP totals</strong> 
+                (left axis, blue line) with <strong>Australia's average car prices</strong> (right axis, orange line) 
+                from 2020-2022. The data suggests a correlation: as the global economy recovered, Australian car prices rose.
+            </p>
+
+            <div class="vis-container">
+                <div id="vis_gdp_vs_price"></div>
+            </div>
+
+            <div class="insight-box">
+                <h3>💡 Key Insight</h3>
+                <p>Average car prices in Australia increased from approximately <strong>$33,000 in 2020</strong> to 
+                <strong>$37,000 in 2022</strong>—a rise of over 12%. This parallels global GDP recovery, suggesting 
+                that economic growth, supply chain disruptions, and increased demand drove automotive price inflation 
+                during the post-pandemic period.</p>
+            </div>
+        </div>
+
+        <!-- Conclusion Section -->
+        <div class="section">
+            <h2 class="section-title">🎯 Conclusions</h2>
+            <p class="section-description">
+                This visualization reveals several key insights about the intersection of economics and automotive markets:
+            </p>
+            <ul style="font-size: 1.05rem; line-height: 1.8; color: #555; margin-left: 2rem;">
+                <li><strong>Economic Concentration:</strong> Global wealth remains highly concentrated, with the top 20 
+                economies dominating world GDP.</li>
+                <li><strong>Post-Pandemic Recovery:</strong> Major economies demonstrated resilient V-shaped recoveries, 
+                with GDP returning to growth by 2021-2022.</li>
+                <li><strong>Brand Dominance:</strong> Toyota's market leadership in Australia reflects consumer priorities 
+                for reliability and value retention.</li>
+                <li><strong>Fuel Diversity:</strong> While petrol dominates, diesel maintains strong representation, 
+                particularly among utility and luxury vehicles.</li>
+                <li><strong>Price-Economy Correlation:</strong> Australian car prices rose alongside global economic 
+                recovery, suggesting macroeconomic conditions directly influence automotive affordability.</li>
+            </ul>
+            <p class="section-description" style="margin-top: 1.5rem;">
+                As Australia continues to navigate global economic shifts, understanding these patterns helps consumers, 
+                policymakers, and industry stakeholders make informed decisions about automotive investments and policies.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>FIT3179 Data Visualisation 2</strong></p>
+        <p>Created using Vega-Lite, Pure.css | October 2025</p>
+        <p>Data Sources: World Bank GDP Data (2020-2025) | Australian Car Listings Database</p>
+    </div>
+
+    <!-- Vega-Lite Embedding Script -->
+    <script type="text/javascript">
+        // GDP Bar Chart - Top 20
+        vegaEmbed('#vis_gdp_bar', 'js/gdp_bar_top20.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).catch(console.error);
+
+        // World GDP Map
+        vegaEmbed('#vis_world_map', 'js/gdp_world_map.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).catch(console.error);
+
+        // GDP Trends - Top 10
+        vegaEmbed('#vis_gdp_trends', 'js/gdp_trends_top10.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).catch(console.error);
+
+        // Brand Popularity
+        vegaEmbed('#vis_brand_popularity', 'js/brand_popularity.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).then(result => {
+            // Connect brand selection between popularity and price charts
+            result.view.addSignalListener('brand_selection', function(name, value) {
+                console.log('Brand selected:', value);
+            });
+        }).catch(console.error);
+
+        // Brand Price Trends
+        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).catch(console.error);
+
+        // Fuel Distribution
+        vegaEmbed('#vis_fuel_dist', 'js/fuel_distribution.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).catch(console.error);
+
+        // GDP vs Car Prices
+        vegaEmbed('#vis_gdp_vs_price', 'js/gdp_vs_prices.json', {
+            actions: false,
+            renderer: 'canvas'
+        }).catch(console.error);
+    </script>
+
 </body>
 </html>

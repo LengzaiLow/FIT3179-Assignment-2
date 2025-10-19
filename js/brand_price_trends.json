@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Average Price by Year (Click a brand above)",
+    "fontSize": 16,
+    "fontWeight": "bold"
+  },
+  "width": 450,
+  "height": 350,
+  "data": {
+    "url": "data/cars_info.csv"
+  },
+  "params": [
+    {
+      "name": "brand_selection",
+      "select": {"type": "point", "fields": ["Brand"]}
+    }
+  ],
+  "transform": [
+    {"filter": {"param": "brand_selection"}},
+    {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
+    {"filter": "datum.Price != null"},
+    {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
+    {
+      "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
+      "groupby": ["Brand", "Year"]
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": true,
+    "strokeWidth": 3,
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Year",
+        "labelAngle": -45,
+        "labelFontSize": 10
+      }
+    },
+    "y": {
+      "field": "AvgPrice",
+      "type": "quantitative",
+      "title": "Average Price (AUD)",
+      "axis": {
+        "format": "$,.0f",
+        "labelFontSize": 10
+      },
+      "scale": {
+        "zero": false
+      }
+    },
+    "color": {
+      "field": "Brand",
+      "type": "nominal",
+      "legend": null
+    },
+    "tooltip": [
+      {"field": "Brand", "type": "nominal"},
+      {"field": "Year", "type": "ordinal"},
+      {"field": "AvgPrice", "type": "quantitative", "title": "Avg Price", "format": "$,.0f"}
+    ]
+  }
+}

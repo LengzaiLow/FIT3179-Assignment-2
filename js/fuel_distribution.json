@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Fuel Type Distribution: Top Brands",
+    "fontSize": 16,
+    "fontWeight": "bold"
+  },
+  "width": 500,
+  "height": 350,
+  "data": {
+    "url": "data/cars_info.csv"
+  },
+  "transform": [
+    {
+      "calculate": "trim(datum.Fuel)",
+      "as": "FuelClean"
+    },
+    {
+      "calculate": "datum.FuelClean == 'Unleaded Petrol' ? 'Petrol' : datum.FuelClean == 'Premium Unleaded Petrol' ? 'Premium Petrol' : datum.FuelClean == 'Premium Unleaded/Electric' ? 'Hybrid' : datum.FuelClean == 'Diesel' ? 'Diesel' : 'Other'",
+      "as": "FuelType"
+    },
+    {
+      "aggregate": [{"op": "count", "as": "TotalCount"}],
+      "groupby": ["Brand"]
+    },
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "TotalCount", "order": "descending"}]
+    },
+    {"filter": "datum.rank <= 10"},
+    {
+      "lookup": "Brand",
+      "from": {
+        "data": {"url": "data/cars_info.csv"},
+        "key": "Brand",
+        "fields": ["Fuel"]
+      }
+    },
+    {
+      "calculate": "trim(datum.Fuel)",
+      "as": "FuelClean"
+    },
+    {
+      "calculate": "datum.FuelClean == 'Unleaded Petrol' ? 'Petrol' : datum.FuelClean == 'Premium Unleaded Petrol' ? 'Premium Petrol' : datum.FuelClean == 'Premium Unleaded/Electric' ? 'Hybrid' : datum.FuelClean == 'Diesel' ? 'Diesel' : 'Other'",
+      "as": "FuelType"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
+  "encoding": {
+    "y": {
+      "field": "Brand",
+      "type": "nominal",
+      "sort": "-x",
+      "axis": {
+        "title": null,
+        "labelFontSize": 11
+      }
+    },
+    "x": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "title": "Percentage",
+      "stack": "normalize",
+      "axis": {
+        "format": "%",
+        "labelFontSize": 10
+      }
+    },
+    "color": {
+      "field": "FuelType",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Petrol", "Premium Petrol", "Diesel", "Hybrid", "Other"],
+        "range": ["#4c78a8", "#f58518", "#54a24b", "#e45756", "#9d9d9d"]
+      },
+      "legend": {
+        "title": "Fuel Type",
+        "orient": "bottom",
+        "labelFontSize": 11
+      }
+    },
+    "tooltip": [
+      {"field": "Brand", "type": "nominal"},
+      {"field": "FuelType", "type": "nominal", "title": "Fuel"},
+      {"aggregate": "count", "type": "quantitative", "title": "Count"}
+    ]
+  }
+}

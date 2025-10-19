@@ -1,0 +1,106 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Global GDP vs Australian Car Prices (2020-2022)",
+    "fontSize": 18,
+    "fontWeight": "bold"
+  },
+  "width": 700,
+  "height": 400,
+  "layer": [
+    {
+      "data": {
+        "url": "data/2020-2025.csv"
+      },
+      "transform": [
+        {
+          "fold": ["2020", "2021", "2022"],
+          "as": ["Year", "GDP"]
+        },
+        {"calculate": "toNumber(datum.GDP)", "as": "GDP_Value"},
+        {
+          "aggregate": [{"op": "sum", "field": "GDP_Value", "as": "TotalGDP"}],
+          "groupby": ["Year"]
+        },
+        {"calculate": "datum.TotalGDP / 1000", "as": "GDP_Trillions"}
+      ],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "point": {"size": 100},
+        "color": "#4c78a8"
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year",
+            "labelAngle": 0,
+            "labelFontSize": 12
+          }
+        },
+        "y": {
+          "field": "GDP_Trillions",
+          "type": "quantitative",
+          "title": "Global GDP (Trillions USD)",
+          "axis": {
+            "format": ",.1f",
+            "labelFontSize": 11,
+            "titleColor": "#4c78a8"
+          }
+        },
+        "tooltip": [
+          {"field": "Year", "type": "ordinal"},
+          {"field": "GDP_Trillions", "type": "quantitative", "title": "Global GDP (Trillions)", "format": ",.2f"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/cars_info.csv"
+      },
+      "transform": [
+        {"filter": "datum.Year >= 2020 && datum.Year <= 2022"},
+        {"filter": "datum.Price != null"},
+        {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
+        {
+          "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
+          "groupby": ["Year"]
+        },
+        {"calculate": "toString(datum.Year)", "as": "YearStr"},
+        {"calculate": "datum.AvgPrice / 1000", "as": "Price_Thousands"}
+      ],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "strokeDash": [5, 5],
+        "point": {"size": 100, "filled": true},
+        "color": "#e7ba52"
+      },
+      "encoding": {
+        "x": {
+          "field": "YearStr",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "Price_Thousands",
+          "type": "quantitative",
+          "title": "Avg Car Price (Thousands AUD)",
+          "axis": {
+            "format": ",.0f",
+            "labelFontSize": 11,
+            "titleColor": "#e7ba52"
+          }
+        },
+        "tooltip": [
+          {"field": "Year", "type": "quantitative"},
+          {"field": "AvgPrice", "type": "quantitative", "title": "Avg Car Price (AUD)", "format": "$,.0f"}
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {"y": "independent"}
+  }
+}

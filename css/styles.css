@@ -1,300 +1,253 @@
-/*
-  Stylesheet for Data Visualisation 2 project.
-  Provides a clean, modern aesthetic with storytelling layout.
-*/
+/* FIT3179 Data Visualisation 2 - Custom Styles */
 
-/* Base styles */
-html, body {
-  height: 100%;
-  overflow-y: auto;
-  scroll-behavior: smooth;
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f5f9ff 0%, #e8f4f8 100%);
-  color: #2c3e50;
-  margin: 0;
-  padding: 0;
-  line-height: 1.7;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
 }
 
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 30px 20px 50px;
+h1, h2, h3, h4 {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
-/* Header styles */
-header {
-  text-align: center;
-  margin-bottom: 50px;
-  padding: 30px 20px;
-  background: linear-gradient(135deg, #003366 0%, #1a5276 100%);
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  color: white;
+/* Header Section */
+.header-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-h1 {
-  font-size: 2.8em;
-  margin: 0 0 10px 0;
-  color: #ffffff;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+.header-section h1 {
+    font-size: 2.8rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.subtitle {
-  font-size: 1.2em;
-  color: #b3d9ff;
-  margin: 0 0 20px 0;
-  font-weight: 300;
+.header-section .subtitle {
+    font-size: 1.3rem;
+    font-weight: 300;
+    opacity: 0.95;
+    margin-top: 0.5rem;
 }
 
-p.intro {
-  font-size: 1.05em;
-  margin: 0;
-  line-height: 1.8;
-  color: #e6f2ff;
-  max-width: 900px;
-  margin: 0 auto;
+.header-section .author-info {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    opacity: 0.9;
 }
 
-/* Story sections */
-.story-section {
-  margin-bottom: 50px;
+/* Content Container */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
-.section-heading {
-  font-size: 2em;
-  color: #003366;
-  margin: 40px 0 15px;
-  text-align: center;
-  font-weight: 600;
+/* Section Styles */
+.section {
+    background: white;
+    margin: 2rem 0;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.section-text {
-  font-size: 1.05em;
-  line-height: 1.8;
-  color: #555;
-  max-width: 900px;
-  margin: 0 auto 30px;
-  text-align: center;
-  padding: 0 20px;
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #667eea;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 0.5rem;
 }
 
-/* Grid layout */
-.viz-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  margin-bottom: 30px;
+.section-subtitle {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
+    color: #764ba2;
 }
 
-/* Chart cards */
-.chart-card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  padding: 25px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.section-description {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #555;
 }
 
-.chart-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+/* Visualization Container */
+.vis-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.chart-card.full-width {
-  grid-column: 1 / -1;
+.vis-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
 }
 
-/* Card header */
-.card-header {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 3px solid #e0e7ed;
+/* Dashboard Layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
 }
 
-.chart-card h2,
-.chart-card h3 {
-  font-size: 1.4em;
-  margin: 0 0 10px 0;
-  color: #1a5276;
-  font-weight: 600;
+@media (max-width: 968px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
 }
 
-.chart-card h3 {
-  font-size: 1.2em;
+.dashboard-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
 }
 
-.chart-description {
-  font-size: 0.95em;
-  color: #666;
-  margin: 0;
-  line-height: 1.6;
+/* Key Insights Box */
+.insight-box {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 10px;
+    border-left: 5px solid #fff;
 }
 
-/* Insights */
-.insight {
-  margin-top: 20px;
-  padding: 15px 20px;
-  background-color: #f0f8ff;
-  border-left: 4px solid #1a5276;
-  border-radius: 4px;
+.insight-box h3 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
 }
 
-.insight p {
-  margin: 0;
-  font-size: 0.95em;
-  line-height: 1.6;
-  color: #2c3e50;
+.insight-box p {
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-.insight strong {
-  color: #003366;
+/* Statistics Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
 }
 
-/* Chart container */
-.chart {
-  min-height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.chart-card.full-width .chart {
-  min-height: 500px;
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-/* Conclusion section */
-.conclusion {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
 }
 
-.conclusion h2 {
-  font-size: 2em;
-  color: #003366;
-  margin: 0 0 20px 0;
+/* Interactive Instructions */
+.interaction-note {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 4px;
 }
 
-.conclusion .section-text {
-  text-align: left;
-  max-width: 1000px;
+.interaction-note strong {
+    color: #1976d2;
 }
 
 /* Footer */
-footer {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  margin-top: 50px;
+.footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
 }
 
-.footer-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-bottom: 20px;
+.footer p {
+    margin: 0.5rem 0;
+    opacity: 0.8;
 }
 
-.data-sources h3,
-.methodology h3 {
-  font-size: 1.2em;
-  color: #003366;
-  margin: 0 0 15px 0;
-  font-weight: 600;
-}
-
-.data-sources ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.data-sources li {
-  padding: 8px 0;
-  border-bottom: 1px solid #e0e7ed;
-  font-size: 0.9em;
-  line-height: 1.6;
-}
-
-.data-sources li:last-child {
-  border-bottom: none;
-}
-
-.methodology p {
-  font-size: 0.9em;
-  line-height: 1.7;
-  color: #555;
-  margin: 0;
-}
-
-.footnote {
-  font-size: 0.85em;
-  margin: 15px 0 0;
-  padding-top: 20px;
-  border-top: 2px solid #e0e7ed;
-  color: #7f8c8d;
-  text-align: center;
-}
-
-.footnote strong {
-  color: #003366;
-  font-weight: 600;
-}
-
-/* Responsive design */
-@media (max-width: 992px) {
-  .viz-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-content {
-    grid-template-columns: 1fr;
-  }
-  
-  h1 {
-    font-size: 2.2em;
-  }
-  
-  .section-heading {
-    font-size: 1.6em;
-  }
-  
-  p.intro,
-  .section-text {
-    font-size: 1em;
-  }
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
-  .container {
-    padding: 20px 15px 40px;
-  }
-  
-  header {
-    padding: 20px 15px;
-  }
-  
-  h1 {
-    font-size: 1.8em;
-  }
-  
-  .subtitle {
-    font-size: 1em;
-  }
-  
-  .chart {
-    min-height: 350px;
-  }
-  
-  .chart-card {
-    padding: 15px;
-  }
+    .header-section h1 {
+        font-size: 2rem;
+    }
+    
+    .header-section .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .section {
+        padding: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .content-wrapper {
+        padding: 1rem;
+    }
+}
+
+/* Vega-Lite Overrides */
+#vis {
+    width: 100%;
+}
+
+.vega-embed {
+    width: 100% !important;
+}
+
+.vega-embed details {
+    display: none !important;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading Animation */
+.loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #667eea;
 }
