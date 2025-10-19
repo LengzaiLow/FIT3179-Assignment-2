@@ -1,8 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Normalised stacked bar chart showing the distribution of vehicle types across fuel categories.",
+  "width": 500,
   "height": 450,
-  "data": { "url": "../data/cars_info.csv" },
+  "data": { "url": "data/cars_info.csv" },
   "title": {
     "text": "Vehicle Type Distribution by Fuel",
     "anchor": "start",
@@ -14,26 +15,29 @@
       "name": "selectType",
       "select": {
         "type": "point",
-        "fields": ["Type"],
-        "on": "click"
+        "fields": ["Type"]
       },
       "bind": "legend"
     }
   ],
   "transform": [
     {
+      "calculate": "split(datum.Fuel, ',')[0]",
+      "as": "Fuel_clean"
+    },
+    {
       "aggregate": [
         { "op": "count", "as": "count" },
         { "op": "mean", "field": "Price", "as": "avg_price" },
         { "op": "mean", "field": "CC", "as": "avg_cc" }
       ],
-      "groupby": ["Fuel", "Type"]
+      "groupby": ["Fuel_clean", "Type"]
     }
   ],
   "mark": { "type": "bar" },
   "encoding": {
     "x": {
-      "field": "Fuel",
+      "field": "Fuel_clean",
       "type": "nominal",
       "title": "Fuel Type",
       "axis": { "labelAngle": -45 }
@@ -56,7 +60,7 @@
       "value": 0.2
     },
     "tooltip": [
-      { "field": "Fuel", "type": "nominal", "title": "Fuel Type" },
+      { "field": "Fuel_clean", "type": "nominal", "title": "Fuel Type" },
       { "field": "Type", "type": "nominal", "title": "Vehicle Type" },
       { "field": "count", "type": "quantitative", "title": "Count" },
       { "field": "avg_price", "type": "quantitative", "title": "Avg Price (USD)", "format": ",.0f" },

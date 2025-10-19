@@ -1,8 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Horizontal bar chart of the top 10 vehicle brands by number of listings, colored by average price.",
+  "width": 500,
   "height": 450,
-  "data": { "url": "../data/cars_info.csv" },
+  "data": { "url": "data/cars_info.csv" },
   "title": {
     "text": "Top Vehicle Brands",
     "anchor": "start",

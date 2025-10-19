@@ -1,8 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Bar chart showing the number of vehicles within engine size bins, with a line overlay for average price.",
+  "width": "container",
   "height": 450,
-  "data": { "url": "../data/cars_info.csv" },
+  "data": { "url": "data/cars_info.csv" },
   "title": {
     "text": "Engine Size vs Average Price",
     "anchor": "start",
