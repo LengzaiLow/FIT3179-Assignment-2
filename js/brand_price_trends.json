@@ -10,17 +10,20 @@
   "data": {
     "url": "data/cars_info.csv"
   },
-  "params": [
-    {
-      "name": "brand_selection",
-      "select": {"type": "point", "fields": ["Brand"]}
-    }
-  ],
   "transform": [
-    {"filter": {"param": "brand_selection"}},
     {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
     {"filter": "datum.Price != null"},
     {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
+    {
+      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
+      "groupby": ["Brand"]
+    },
+    {
+      "window": [{"op": "rank", "as": "BrandRank"}],
+      "sort": [{"field": "BrandTotal", "order": "descending"}]
+    },
+    {"filter": "datum.BrandRank <= 15"},
+    {"filter": {"param": "brand_selection"}},
     {
       "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
       "groupby": ["Brand", "Year"]

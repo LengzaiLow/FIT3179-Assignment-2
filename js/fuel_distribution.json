@@ -21,15 +21,7 @@
       "as": "FuelType"
     },
     {
-      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
-      "groupby": ["Brand"]
-    },
-    {
-      "window": [{"op": "rank", "as": "BrandRank"}],
-      "sort": [{"field": "BrandTotal", "order": "descending"}]
-    },
-    {
-      "filter": "datum.BrandRank <= 10"
+      "filter": "indexof(['Toyota', 'Ford', 'Holden', 'Mazda', 'Nissan', 'Hyundai', 'Volkswagen', 'Honda', 'BMW', 'Mercedes-Benz'], datum.Brand) >= 0"
     }
   ],
   "mark": {
@@ -40,7 +32,7 @@
     "y": {
       "field": "Brand",
       "type": "nominal",
-      "sort": {"field": "BrandTotal", "order": "descending"},
+      "sort": {"op": "count", "order": "descending"},
       "axis": {
         "title": null,
         "labelFontSize": 12,
