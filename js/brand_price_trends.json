@@ -73,6 +73,13 @@
       },
       "value": 0
     },
+    "strokeWidth": {
+      "condition": {
+        "param": "brand_selection",
+        "value": 3
+      },
+      "value": 0
+    },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
       {"field": "YearNum", "type": "ordinal", "title": "Year"},
