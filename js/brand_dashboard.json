@@ -1,0 +1,157 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "data/cars_info.csv"
+  },
+  "params": [
+    {
+      "name": "brand_selection",
+      "select": {"type": "point", "fields": ["Brand"]}
+    }
+  ],
+  "vconcat": [
+    {
+      "title": {
+        "text": "Most Popular Car Brands in Australia",
+        "fontSize": 16,
+        "fontWeight": "bold"
+      },
+      "width": "container",
+      "height": 400,
+      "transform": [
+        {
+          "aggregate": [{"op": "count", "as": "Count"}],
+          "groupby": ["Brand"]
+        },
+        {
+          "window": [{"op": "rank", "as": "rank"}],
+          "sort": [{"field": "Count", "order": "descending"}]
+        },
+        {"filter": "datum.rank <= 15"}
+      ],
+      "mark": {
+        "type": "bar",
+        "tooltip": true,
+        "cursor": "pointer"
+      },
+      "encoding": {
+        "y": {
+          "field": "Brand",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": {
+            "title": null,
+            "labelFontSize": 11
+          }
+        },
+        "x": {
+          "field": "Count",
+          "type": "quantitative",
+          "title": "Number of Listings",
+          "axis": {
+            "format": "~s",
+            "labelFontSize": 10
+          }
+        },
+        "color": {
+          "condition": {
+            "param": "brand_selection",
+            "value": "#e7ba52"
+          },
+          "value": "#4c78a8"
+        },
+        "opacity": {
+          "condition": {
+            "param": "brand_selection",
+            "value": 1
+          },
+          "value": 0.7
+        },
+        "tooltip": [
+          {"field": "Brand", "type": "nominal"},
+          {"field": "Count", "type": "quantitative", "title": "Listings", "format": ","}
+        ]
+      }
+    },
+    {
+      "title": {
+        "text": "Average Price by Year (Click a brand above)",
+        "fontSize": 16,
+        "fontWeight": "bold"
+      },
+      "width": "container",
+      "height": 400,
+      "transform": [
+        {"filter": "datum.Price != null && datum.Year != null"},
+        {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
+        {"calculate": "toNumber(datum.Year)", "as": "YearNum"},
+        {"filter": "datum.YearNum >= 2010 && datum.YearNum <= 2022"},
+        {"aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}, {"op": "count", "as": "Count"}], "groupby": ["Brand", "YearNum"]},
+        {"joinaggregate": [{"op": "sum", "field": "Count", "as": "BrandTotal"}], "groupby": ["Brand"]},
+        {"window": [{"op": "dense_rank", "as": "BrandRank"}], "sort": [{"field": "BrandTotal", "order": "descending"}], "frame": [null, null]},
+        {"filter": "datum.BrandRank <= 15"}
+      ],
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 3,
+        "tooltip": true
+      },
+      "encoding": {
+        "x": {
+          "field": "YearNum",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year",
+            "labelAngle": -45,
+            "labelFontSize": 10
+          }
+        },
+        "y": {
+          "field": "AvgPrice",
+          "type": "quantitative",
+          "title": "Average Price (AUD)",
+          "axis": {
+            "format": "$,.0f",
+            "labelFontSize": 10
+          },
+          "scale": {
+            "zero": false
+          }
+        },
+        "color": {
+          "field": "Brand",
+          "type": "nominal",
+          "legend": {
+            "title": "Top 15 Brands (Click to filter)",
+            "orient": "bottom",
+            "labelFontSize": 9,
+            "titleFontSize": 10,
+            "columns": 5
+          }
+        },
+        "opacity": {
+          "condition": {
+            "param": "brand_selection",
+            "value": 1,
+            "empty": true
+          },
+          "value": 0
+        },
+        "strokeWidth": {
+          "condition": {
+            "param": "brand_selection",
+            "value": 3,
+            "empty": true
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "Brand", "type": "nominal"},
+          {"field": "YearNum", "type": "ordinal", "title": "Year"},
+          {"field": "AvgPrice", "type": "quantitative", "title": "Avg Price", "format": "$,.0f"}
+        ]
+      }
+    }
+  ]
+}
