@@ -69,14 +69,16 @@
     "opacity": {
       "condition": {
         "param": "brand_selection",
-        "value": 1
+        "value": 1,
+        "empty": true
       },
       "value": 0
     },
     "strokeWidth": {
       "condition": {
         "param": "brand_selection",
-        "value": 3
+        "value": 3,
+        "empty": true
       },
       "value": 0
     },
