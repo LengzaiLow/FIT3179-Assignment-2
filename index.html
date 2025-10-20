@@ -142,9 +142,9 @@
             </div>
 
             <div class="interaction-note">
-                <strong>💡 Interactive Dashboard:</strong> Click on any brand in the left chart to see how its 
-                average price evolved from 2010-2022 in the right chart. Notice price variations between budget 
-                brands like Holden and premium brands like Mercedes-Benz.
+                <strong>💡 Interactive Dashboard:</strong> Click on any brand bar in the chart above to filter and
+                show only that brand's price evolution from 2010-2022. Click again to deselect and show all brands. 
+                Notice price variations between budget brands like Holden and premium brands like Mercedes-Benz.
             </div>
         </div>
 
@@ -265,7 +265,7 @@
         }).catch(console.error);
 
         // Brand Price Trends (cache-busted)
-        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json?v=5', {
+        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json?v=6', {
             actions: false,
             renderer: 'canvas'
         }).then(result => {

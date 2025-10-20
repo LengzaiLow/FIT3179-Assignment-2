@@ -25,12 +25,13 @@
     {"aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}, {"op": "count", "as": "Count"}], "groupby": ["Brand", "YearNum"]},
     {"joinaggregate": [{"op": "sum", "field": "Count", "as": "BrandTotal"}], "groupby": ["Brand"]},
     {"window": [{"op": "dense_rank", "as": "BrandRank"}], "sort": [{"field": "BrandTotal", "order": "descending"}], "frame": [null, null]},
-    {"filter": "datum.BrandRank <= 15"}
+    {"filter": "datum.BrandRank <= 15"},
+    {"filter": "!length(data('brand_selection_store')) || indata('brand_selection_store', 'Brand', datum.Brand)"}
   ],
   "mark": {
     "type": "line",
     "point": true,
-    "strokeWidth": 2,
+    "strokeWidth": 3,
     "tooltip": true
   },
   "encoding": {
@@ -59,26 +60,12 @@
       "field": "Brand",
       "type": "nominal",
       "legend": {
-        "title": "Top 15 Brands (Click to highlight)",
+        "title": "Top 15 Brands (Click to filter)",
         "orient": "bottom",
         "labelFontSize": 9,
         "titleFontSize": 10,
         "columns": 5
       }
-    },
-    "opacity": {
-      "condition": {
-        "param": "brand_selection",
-        "value": 1
-      },
-      "value": 0.2
-    },
-    "strokeWidth": {
-      "condition": {
-        "param": "brand_selection",
-        "value": 3
-      },
-      "value": 2
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
