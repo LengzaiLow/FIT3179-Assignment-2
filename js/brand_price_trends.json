@@ -10,19 +10,17 @@
   "data": {
     "url": "data/cars_info.csv"
   },
+  "params": [
+    {
+      "name": "brand_selection",
+      "select": {"type": "point", "fields": ["Brand"]}
+    }
+  ],
   "transform": [
+    {"filter": {"param": "brand_selection"}},
+    {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
     {"filter": "datum.Price != null"},
     {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
-    {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
-    {
-      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
-      "groupby": ["Brand"]
-    },
-    {
-      "window": [{"op": "rank", "as": "BrandRank"}],
-      "sort": [{"field": "BrandTotal", "order": "descending"}]
-    },
-    {"filter": "datum.BrandRank <= 15"},
     {
       "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
       "groupby": ["Brand", "Year"]
@@ -31,7 +29,7 @@
   "mark": {
     "type": "line",
     "point": true,
-    "strokeWidth": 2,
+    "strokeWidth": 3,
     "tooltip": true
   },
   "encoding": {
@@ -41,7 +39,7 @@
       "axis": {
         "title": "Year",
         "labelAngle": -45,
-        "labelFontSize": 11
+        "labelFontSize": 10
       }
     },
     "y": {
@@ -50,7 +48,7 @@
       "title": "Average Price (AUD)",
       "axis": {
         "format": "$,.0f",
-        "labelFontSize": 11
+        "labelFontSize": 10
       },
       "scale": {
         "zero": false
@@ -59,20 +57,7 @@
     "color": {
       "field": "Brand",
       "type": "nominal",
-      "legend": {
-        "title": "Top 15 Brands",
-        "orient": "bottom",
-        "labelFontSize": 10,
-        "titleFontSize": 11,
-        "columns": 5
-      }
-    },
-    "opacity": {
-      "condition": {
-        "param": "brand_selection",
-        "value": 1
-      },
-      "value": 0.2
+      "legend": null
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
