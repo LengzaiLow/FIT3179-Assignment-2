@@ -10,17 +10,19 @@
   "data": {
     "url": "data/cars_info.csv"
   },
-  "params": [
-    {
-      "name": "brand_selection",
-      "select": {"type": "point", "fields": ["Brand"]}
-    }
-  ],
   "transform": [
-    {"filter": {"param": "brand_selection"}},
     {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
     {"filter": "datum.Price != null"},
     {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
+    {
+      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
+      "groupby": ["Brand"]
+    },
+    {
+      "window": [{"op": "rank", "as": "BrandRank"}],
+      "sort": [{"field": "BrandTotal", "order": "descending"}]
+    },
+    {"filter": "datum.BrandRank <= 15"},
     {
       "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
       "groupby": ["Brand", "Year"]
@@ -29,7 +31,7 @@
   "mark": {
     "type": "line",
     "point": true,
-    "strokeWidth": 3,
+    "strokeWidth": 2,
     "tooltip": true
   },
   "encoding": {
@@ -57,7 +59,20 @@
     "color": {
       "field": "Brand",
       "type": "nominal",
-      "legend": null
+      "legend": {
+        "title": "Top 15 Brands",
+        "orient": "bottom",
+        "labelFontSize": 9,
+        "titleFontSize": 10,
+        "columns": 5
+      }
+    },
+    "opacity": {
+      "condition": {
+        "param": "brand_selection",
+        "value": 1
+      },
+      "value": 0.2
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
