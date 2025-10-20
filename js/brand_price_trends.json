@@ -27,7 +27,7 @@
   },
   "encoding": {
     "x": {
-      "field": "Year",
+      "field": "YearNum",
       "type": "ordinal",
       "axis": {
         "title": "Year",
@@ -60,7 +60,7 @@
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
-      {"field": "Year", "type": "ordinal"},
+      {"field": "YearNum", "type": "ordinal", "title": "Year"},
       {"field": "AvgPrice", "type": "quantitative", "title": "Avg Price", "format": "$,.0f"}
     ]
   }
