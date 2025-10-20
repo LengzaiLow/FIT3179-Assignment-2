@@ -245,20 +245,40 @@
         }).catch(console.error);
 
         // Brand Popularity
+        let brandPopularityView;
+        let brandPriceView;
+
         vegaEmbed('#vis_brand_popularity', 'js/brand_popularity.json', {
             actions: false,
             renderer: 'canvas'
         }).then(result => {
-            // Connect brand selection between popularity and price charts
-            result.view.addSignalListener('brand_selection', function(name, value) {
-                console.log('Brand selected:', value);
+            brandPopularityView = result.view;
+            
+            // Listen for brand selection and update price chart
+            brandPopularityView.addSignalListener('brand_selection', function(name, value) {
+                console.log('Brand selected in popularity chart:', value);
+                if (brandPriceView) {
+                    brandPriceView.signal('brand_selection', value);
+                    brandPriceView.runAsync();
+                }
             });
         }).catch(console.error);
 
         // Brand Price Trends (cache-busted)
-        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json?v=4', {
+        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json?v=5', {
             actions: false,
             renderer: 'canvas'
+        }).then(result => {
+            brandPriceView = result.view;
+            
+            // Listen for brand selection in price chart and sync back to popularity
+            brandPriceView.addSignalListener('brand_selection', function(name, value) {
+                console.log('Brand selected in price chart:', value);
+                if (brandPopularityView) {
+                    brandPopularityView.signal('brand_selection', value);
+                    brandPopularityView.runAsync();
+                }
+            });
         }).catch(console.error);
 
         // Fuel Distribution

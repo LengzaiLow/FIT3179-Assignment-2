@@ -10,6 +10,13 @@
   "data": {
     "url": "data/cars_info.csv"
   },
+  "params": [
+    {
+      "name": "brand_selection",
+      "select": {"type": "point", "fields": ["Brand"]},
+      "bind": "legend"
+    }
+  ],
   "transform": [
     {"filter": "datum.Price != null && datum.Year != null"},
     {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
@@ -58,6 +65,20 @@
         "titleFontSize": 10,
         "columns": 5
       }
+    },
+    "opacity": {
+      "condition": {
+        "param": "brand_selection",
+        "value": 1
+      },
+      "value": 0.2
+    },
+    "strokeWidth": {
+      "condition": {
+        "param": "brand_selection",
+        "value": 3
+      },
+      "value": 2
     },
     "tooltip": [
       {"field": "Brand", "type": "nominal"},
