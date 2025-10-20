@@ -255,8 +255,8 @@
             });
         }).catch(console.error);
 
-        // Brand Price Trends
-        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json', {
+        // Brand Price Trends (cache-busted)
+        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json?v=2', {
             actions: false,
             renderer: 'canvas'
         }).catch(console.error);
