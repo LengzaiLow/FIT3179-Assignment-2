@@ -13,7 +13,7 @@
   },
   "params": [
     { "name": "yearParam", "value": "All",
-      "bind": {"input": "select", "options": ["All", 2020, 2021, 2022, 2023, 2024, 2025], "name": "Year: "}
+      "bind": {"input": "select", "options": ["All", 2020, 2021, 2022], "name": "Year: "}
     }
   ],
 
