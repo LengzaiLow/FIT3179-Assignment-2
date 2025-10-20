@@ -47,7 +47,7 @@
       "type": "quantitative",
       "title": "Number of Listings",
       "axis": {
-        "format": "~s",
+        "format": ",",
         "labelFontSize": 10
       }
     },

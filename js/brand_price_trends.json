@@ -11,22 +11,13 @@
     "url": "data/cars_info.csv"
   },
   "transform": [
-    {"filter": "datum.Year >= 2010 && datum.Year <= 2022"},
-    {"filter": "datum.Price != null"},
-    {"calculate": "toNumber(datum.Price)", "as": "PriceNum"},
-    {
-      "joinaggregate": [{"op": "count", "as": "BrandTotal"}],
-      "groupby": ["Brand"]
-    },
-    {
-      "window": [{"op": "rank", "as": "BrandRank"}],
-      "sort": [{"field": "BrandTotal", "order": "descending"}]
-    },
+    {"calculate": "toNumber(replace(replace(datum.Price,'$',''),',',''))", "as": "PriceNum"},
+    {"calculate": "toNumber(datum.Year)", "as": "YearNum"},
+    {"filter": "YearNum >= 2010 && YearNum <= 2025"},
+    {"joinaggregate": [{"op": "count", "as": "BrandTotal"}], "groupby": ["Brand"]},
+    {"window": [{"op": "rank", "as": "BrandRank"}], "sort": [{"field": "BrandTotal", "order": "descending"}]},
     {"filter": "datum.BrandRank <= 15"},
-    {
-      "aggregate": [{"op": "mean", "field": "PriceNum", "as": "AvgPrice"}],
-      "groupby": ["Brand", "Year"]
-    }
+    {"aggregate": [{"op": "mean","field":"PriceNum","as":"AvgPrice"}], "groupby": ["Brand","YearNum"]}
   ],
   "mark": {
     "type": "line",
