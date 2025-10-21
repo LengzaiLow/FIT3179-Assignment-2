@@ -6,7 +6,7 @@
   "params": [
     {
       "name": "brand_selection",
-      "select": {"type": "point", "fields": ["Brand"]}
+      "select": {"type": "point", "fields": ["Brand"], "on": "click"}
     }
   ],
   "vconcat": [
