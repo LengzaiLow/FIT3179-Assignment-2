@@ -132,13 +132,8 @@
                 Australian priorities: reliability, resale value, and suitability for both urban and rural driving.
             </p>
 
-            <div class="dashboard">
-                <div class="dashboard-item">
-                    <div id="vis_brand_popularity"></div>
-                </div>
-                <div class="dashboard-item">
-                    <div id="vis_brand_price"></div>
-                </div>
+            <div class="vis-container">
+                <div id="vis_brand_dashboard"></div>
             </div>
 
             <div class="interaction-note">
@@ -245,41 +240,10 @@
             renderer: 'canvas'
         }).catch(console.error);
 
-        // Brand Popularity and Price Charts with Cross-Chart Interactivity
-        let brandPopularityView;
-        let brandPriceView;
-
-        vegaEmbed('#vis_brand_popularity', 'js/brand_popularity.json', {
+        // Brand Dashboard (vconcat - no JavaScript needed, parameter shared automatically)
+        vegaEmbed('#vis_brand_dashboard', 'js/brand_dashboard.json', {
             actions: false,
             renderer: 'canvas'
-        }).then(result => {
-            brandPopularityView = result.view;
-            
-            // Listen for brand selection and update price chart
-            brandPopularityView.addSignalListener('brand_selection', function(name, value) {
-                console.log('Brand selected in popularity chart:', value);
-                if (brandPriceView) {
-                    brandPriceView.signal('brand_selection', value);
-                    brandPriceView.runAsync();
-                }
-            });
-        }).catch(console.error);
-
-        // Brand Price Trends
-        vegaEmbed('#vis_brand_price', 'js/brand_price_trends.json?v=10', {
-            actions: false,
-            renderer: 'canvas'
-        }).then(result => {
-            brandPriceView = result.view;
-            
-            // Listen for brand selection in price chart and sync back to popularity
-            brandPriceView.addSignalListener('brand_selection', function(name, value) {
-                console.log('Brand selected in price chart:', value);
-                if (brandPopularityView) {
-                    brandPopularityView.signal('brand_selection', value);
-                    brandPopularityView.runAsync();
-                }
-            });
         }).catch(console.error);
 
         // Fuel Distribution
