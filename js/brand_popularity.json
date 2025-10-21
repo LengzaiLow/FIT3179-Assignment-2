@@ -54,14 +54,16 @@
     "color": {
       "condition": {
         "param": "brand_selection",
-        "value": "#e7ba52"
+        "value": "#e7ba52",
+        "empty": false
       },
       "value": "#4c78a8"
     },
     "opacity": {
       "condition": {
         "param": "brand_selection",
-        "value": 1
+        "value": 1,
+        "empty": true
       },
       "value": 0.7
     },
