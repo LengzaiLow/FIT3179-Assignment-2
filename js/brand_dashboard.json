@@ -124,6 +124,25 @@
         "color": {
           "field": "Brand",
           "type": "nominal",
+          "scale": {
+            "range": [
+              "#e41a1c",
+              "#377eb8",
+              "#4daf4a",
+              "#984ea3",
+              "#ff7f00",
+              "#ffff33",
+              "#a65628",
+              "#f781bf",
+              "#1f78b4",
+              "#33a02c",
+              "#fb9a99",
+              "#b2df8a",
+              "#fdbf6f",
+              "#cab2d6",
+              "#6a3d9a"
+            ]
+          },
           "legend": null
         },
         "opacity": {
